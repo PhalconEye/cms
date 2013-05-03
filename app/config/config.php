@@ -11,13 +11,11 @@ return new \Phalcon\Config(array (
   ),
   'application' => 
   array (
-    'debug' => false,
+    'debug' => true,
     'baseUri' => '/',
-    'engineDir' => ROOT_PATH . '/app/library/Engine/',
-    'controllersDir' => ROOT_PATH . '/app/controllers/',
-    'modelsDir' => ROOT_PATH . '/app/models/',
-    'viewsDir' => ROOT_PATH . '/app/views/',
-    'miscDir' => ROOT_PATH . '/app/misc/',
+    'engineDir' => ROOT_PATH . '/app/libraries/Engine/',
+    'modulesDir' => ROOT_PATH . '/app/modules/',
+    'defaultModule' => 'core',
     'cache' => 
     array (
       'lifetime' => '86400',
@@ -36,13 +34,21 @@ return new \Phalcon\Config(array (
       'compiledPath' => ROOT_PATH . '/app/var/compiled/',
       'compiledExtension' => '.compiled',
     ),
+    'session' => 
+    array (
+      'tableName' => 'session_data',
+      'lifetime' => 1440,
+    ),
   ),
   'models' => 
   array (
     'metadata' => 
     array (
-      'adapter' => 'Memory',
+      'adapter' => 'Apc',
     ),
   ),
-  'modules' => false,
+  'modules' => 
+  array (
+    'blog' => true,
+  ),
 ));

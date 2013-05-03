@@ -5,9 +5,21 @@ if (!defined('ROOT_PATH')) {
     define('ROOT_PATH', dirname(dirname(__FILE__)));
 }
 
-require_once ROOT_PATH . "/app/library/Engine/Application.php";
+define('PE_VERSION', '0.3.0');
 
-$application = new Application();
 
-echo $application->run();
+require_once ROOT_PATH . "/app/libraries/Engine/Application.php";
+require_once ROOT_PATH . "/app/libraries/Engine/Error.php";
+
+try {
+
+    $application = new Engine\Application();
+    $application->run();
+    echo $application->getOutput();
+
+} catch (Exception $e) {
+    \Engine\Error::exception($e);
+    throw $e;
+}
+
 
