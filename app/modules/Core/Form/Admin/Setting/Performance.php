@@ -100,7 +100,7 @@ class Performance extends \Engine\Form
 
         $this->addElement('check', 'clear_cache', array(
             'label' => 'Clear cache',
-            'description' => 'All system cache will be cleared.',
+            'description' => 'All system cache will be cleaned.',
             'options' => 1
         ));
 
@@ -108,7 +108,7 @@ class Performance extends \Engine\Form
         $this->addButton('Save', true);
     }
 
-    public function isValid($data = null, $entity = null){
+    public function isValid($data = null, $entity = null, $skipEntityCreation = false){
         if (isset($data['adapter']) && $data['adapter'] == '0'){
             if (empty($data['cacheDir']) || !is_dir($data['cacheDir'])){
                 $this->addError('Files location isn\'t correct!');

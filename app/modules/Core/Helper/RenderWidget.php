@@ -18,7 +18,7 @@ namespace Core\Helper;
 
 class RenderWidget extends \Phalcon\Tag implements \Engine\HelperInterface
 {
-    static public function _(array $args){
+    static public function _(\Phalcon\DI $di, array $args){
         if (!self::isAllowed($args[1])) return '';
 
         $widget = new \Engine\Widget\Element($args[0], $args[1]);
@@ -28,6 +28,6 @@ class RenderWidget extends \Phalcon\Tag implements \Engine\HelperInterface
     private static function isAllowed($params){
         $viewer = \User\Model\User::getViewer();
         if (empty($params['roles']) || !is_array($params['roles'])) return true;
-        return in_array($viewer->getRoleId(), $params['roles']);
+        return in_array($viewer->role_id, $params['roles']);
     }
 }

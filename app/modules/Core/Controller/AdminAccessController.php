@@ -32,8 +32,11 @@ class AdminAccessController extends \Core\Controller\BaseAdmin
         $allObjects = array();
 
         foreach ($resources as $resource) {
+
             $object = $this->core->acl()->getObjectAcl($resource->getName());
-            if ($object == null) continue;
+            if ($object == null) {
+                continue;
+            }
 
             $allActions = array_merge($allActions, $object->actions, $object->options);
             $allObjects[] = $resource->getName();
@@ -84,7 +87,7 @@ class AdminAccessController extends \Core\Controller\BaseAdmin
         $currentRole = $this->session->get('admin-current-role');
         $currentRole = \User\Model\Role::findFirst($currentRole);
         if (!$currentRole) {
-            $currentRole = \User\Model\Role::getRoleByType(Api_Acl::ROLE_TYPE_ADMIN);
+            $currentRole = \User\Model\Role::getRoleByType(\Core\Api\Acl::ROLE_TYPE_ADMIN);
         }
 
         $objectAcl = $this->core->acl()->getObjectAcl($id);
@@ -102,7 +105,7 @@ class AdminAccessController extends \Core\Controller\BaseAdmin
                     'label' => ucfirst($action),
                     'description' => sprintf('ACCESS_OBJECT_%s_ACTION_%s', strtoupper($objectAcl->name), strtoupper($action)),
                     'options' => 1,
-                    'value' => $this->core->acl()->_()->isAllowed($currentRole->getName(), $objectAcl->name, $action)
+                    'value' => $this->core->acl()->_()->isAllowed($currentRole->name, $objectAcl->name, $action)
                 ));
 
             }
@@ -142,16 +145,16 @@ class AdminAccessController extends \Core\Controller\BaseAdmin
                 "bind" => array(
                     1 => $id,
                     2 => $action,
-                    3 => $currentRole->getId()
+                    3 => $currentRole->id
                 )
             ));
 
 
             if (!$result) {
-                $result = new Access();
+                $result = new \Core\Model\Access();
                 $result->object = $id;
                 $result->action = $action;
-                $result->role_id = $currentRole->getId();
+                $result->role_id = $currentRole->id;
             }
 
             if (empty($data[$action])) {
@@ -164,29 +167,31 @@ class AdminAccessController extends \Core\Controller\BaseAdmin
 
         //save options
         foreach ($objectAcl->options as $options) {
+
             $result = \Core\Model\Access::findFirst(array(
                 "conditions" => "object = ?1 AND action = ?2 AND role_id = ?3",
                 "bind" => array(
                     1 => $id,
                     2 => $options,
-                    3 => $currentRole->getId()
+                    3 => $currentRole->id
                 )
             ));
 
-
             if (!$result) {
-                $result = new Access();
+                $result = new \Core\Model\Access();
                 $result->object = $id;
                 $result->action = $options;
-                $result->role_id = $currentRole->getId();
+                $result->role_id = $currentRole->id;
             }
 
-            if (empty($data[$options]))
+            if (empty($data[$options])) {
                 $data[$options] = null;
+            }
+
             $result->value = $data[$options];
             $result->save();
         }
-
+        $this->core->acl()->clearAcl();
         $this->flash->success('Settings saved!');
     }
 }

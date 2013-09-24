@@ -16,12 +16,18 @@
 
 namespace Core\Controller;
 
+use Phalcon\Mvc\Controller as PhController;
+use Phalcon\Mvc\View as PhView;
+use \Phalcon\Db\Column as PhDbColumn;
+
 /**
  * @property \Phalcon\Db\Adapter\Pdo $db
- * @property \Phalcon\Cache\Backend $cacheData
- * @property \Core\Api\Acl $acl
+ * @property \Phalcon\Cache\Backend  $cacheData
+ * @property \Engine\Application     $app
+ * @property \Phalcon\Assets\Manager $assets
+ * @property \Phalcon\Config         $config
  */
-class Base extends \Phalcon\Mvc\Controller
+class Base extends PhController
 {
 
     /**
@@ -29,12 +35,24 @@ class Base extends \Phalcon\Mvc\Controller
      */
     public function initialize()
     {
-        $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
-        $this->view->setPartialsDir('../../Core/View/partials/');
+        if ($this->config->application->debug && $this->di->has('profiler')) {
+            $this->profiler->start();
+        }
 
+        $this->view->setRenderLevel(PhView::LEVEL_ACTION_VIEW);
+        $this->view->setPartialsDir('../../Core/View/partials/');
         // run init function
-        if (method_exists($this, 'init'))
+        if (method_exists($this, 'init')) {
             $this->init();
+        }
+    }
+
+
+    public function afterExecuteRoute()
+    {
+        if ($this->config->application->debug && $this->di->has('profiler')) {
+            $this->profiler->stop(get_called_class(), 'controller', $this);
+        }
     }
 
     public function renderContent($url = null, $controller = null, $type = null)
@@ -49,9 +67,9 @@ class Base extends \Phalcon\Mvc\Controller
                     "url3" => $url
                 )),
                 'bindTypes' => (array(
-                    "url1" => \Phalcon\Db\Column::BIND_PARAM_STR,
-                    "url2" => \Phalcon\Db\Column::BIND_PARAM_STR,
-                    "url3" => \Phalcon\Db\Column::BIND_PARAM_INT
+                    "url1" => PhDbColumn::BIND_PARAM_STR,
+                    "url2" => PhDbColumn::BIND_PARAM_STR,
+                    "url3" => PhDbColumn::BIND_PARAM_INT
                 ))
             ))->getFirst();
 
@@ -62,18 +80,17 @@ class Base extends \Phalcon\Mvc\Controller
                     "controller" => $controller
                 )),
                 'bindTypes' => (array(
-                    "controller" => \Phalcon\Db\Column::BIND_PARAM_STR
+                    "controller" => PhDbColumn::BIND_PARAM_STR
                 ))
             ))->getFirst();
-        }
-        elseif($type !== null){
+        } elseif ($type !== null) {
             $page = \Core\Model\Page::find(array(
                 'conditions' => 'type=:type:',
                 'bind' => (array(
                     "type" => $type
                 )),
                 'bindTypes' => (array(
-                    "type" => \Phalcon\Db\Column::BIND_PARAM_STR
+                    "type" => PhDbColumn::BIND_PARAM_STR
                 ))
             ))->getFirst();
         }
@@ -87,12 +104,12 @@ class Base extends \Phalcon\Mvc\Controller
         }
 
         // increment views
-        $page->incrementViews();
+//        $page->incrementViews();
 
         // resort content by sides
         $content = array();
         foreach ($page->getWidgets() as $widget) {
-            $content[$widget->getLayout()][] = $widget;
+            $content[$widget->layout][] = $widget;
         }
 
         $this->view->content = $content;
@@ -101,6 +118,16 @@ class Base extends \Phalcon\Mvc\Controller
 
         $this->view->pick('layouts/page');
 
+    }
+
+    public function disableHeader()
+    {
+        $this->view->disableHeader = true;
+    }
+
+    public function disableFooter()
+    {
+        $this->view->disableFooter = true;
     }
 
 }

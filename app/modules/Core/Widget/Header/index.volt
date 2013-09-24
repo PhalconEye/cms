@@ -11,9 +11,9 @@
    to phalconeye@gmail.com so we can send you a copy immediately.
 #}
 
-{% extends "../../View/layouts/widget.volt" %}
+{%- extends "../../View/layouts/widget.volt" -%}
 
-{% block content %}
+{%- block content -%}
     <div class="header_widget">
         <div class="header_logo">
             <a href="/">
@@ -24,15 +24,18 @@
 
         {% if show_auth is 1 %}
             <div class="header_auth">
-                {% if helper('core').viewer().getId() is 0 %}
-                <a href="/login">{{ 'Login' | trans }}</a>&nbsp;|
-                <a href="/register">{{ 'Register' | trans }}</a> </span>
+                {% if helper('core').viewer().id is 0 %}
+                <a href="{{ url('login') }}">{{ 'Login' | trans }}</a>&nbsp;|
+                <a href="{{ url('register') }}">{{ 'Register' | trans }}</a>
                 {% else %}
-                    {{ 'Welcome, ' |trans }}{{ helper('core').viewer().getUserName() }}&nbsp;|
-                    <a href="/logout">{{ 'Logout' | trans }}</a> </span>
+                    {{ 'Welcome, ' |trans }}{{ helper('core').viewer().username }}&nbsp;|
+                    {% if helper('core').allowed('AdminArea', 'access') %}
+                    <a href="{{ url('admin') }}">{{ 'Admin panel' | trans }}</a>
+                    {% endif %}
+                    <a href="{{ url('logout') }}">{{ 'Logout' | trans }}</a>
                 {% endif %}
             </div>
         {% endif %}
         <div class="clear"></div>
     </div>
-{% endblock %}
+{%- endblock -%}

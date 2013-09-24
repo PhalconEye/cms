@@ -3,6 +3,7 @@ Phalcon Eye CMS
 
 Phalcon Eye - CMS based on Phalcon PHP Framework (https://github.com/phalcon/cphalcon).
 
+![HomePage Screenshot](https://raw.github.com/lantian/PhalconEye/master/gitdata/screenshot2.png)
 ![AdminPanel Screenshot](https://raw.github.com/lantian/PhalconEye/master/gitdata/screenshot1.png)
 
 * Current Version: 0.3.0
@@ -14,5 +15,7 @@ Phalcon Eye CMS is open-source software licensed under the New BSD License. See 
 
 Third Party
 -----------
+* jQuery: https://jquery.org/ (MIT)
 * CKEditor: http://ckeditor.com/ (GPL, LGPL and MPL)
 * AjaXplorer: http://ajaxplorer.info/ (GPL)
+* lessphp: http://leafo.net/lessphp/ (GPL3/MIT)

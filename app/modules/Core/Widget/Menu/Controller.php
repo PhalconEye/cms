@@ -21,7 +21,7 @@ class Controller extends \Engine\Widget\Controller
 
     public function indexAction()
     {
-        $this->view->title  =  $this->getParam('title');
+        $this->view->title = $this->getParam('title');
 
         $menuId = $this->getParam('menu_id');
         $menu = null;
@@ -35,26 +35,17 @@ class Controller extends \Engine\Widget\Controller
         if (empty($menuClass))
             $menuClass = 'nav';
 
-        $cacheKey = "menu_{$menuId}.cache";
-        $navigation = $this->cacheData->get($cacheKey);
+        $items = $this->_composeNavigation($menu->getMenuItems(array('parent_id IS NULL', 'order' => 'item_order ASC')));
 
-        if ($navigation === null) {
-
-            $items = $this->_composeNavigation($menu->getMenuItem(array('parent_id IS NULL', 'order' => 'item_order ASC')));
-
-            if (empty($items)) {
-                return $this->setNoRender();
-            }
-
-            $navigation = new \Engine\Navigation();
-            $navigation
-                ->setListClass($menuClass)
-                ->setItems($items)
-                ->setActiveItem($this->dispatcher->getActionName());
-
-            $this->cacheData->save($cacheKey, $navigation);
+        if (empty($items)) {
+            return $this->setNoRender();
         }
 
+        $navigation = new \Engine\Navigation();
+        $navigation
+            ->setListClass($menuClass)
+            ->setItems($items)
+            ->setActiveItem($this->dispatcher->getActionName());
 
         $this->view->navigation = $navigation;
     }
@@ -66,16 +57,16 @@ class Controller extends \Engine\Widget\Controller
         foreach ($items as $item) {
             /** @var MenuItem $item */
             if (!$item->isAllowed()) continue;
-            $subItems = $item->getMenuItem(array('order' => 'item_order ASC'));
+            $subItems = $item->getMenuItems(array('order' => 'item_order ASC'));
             $navigationItems[$index] = array(
-                'title' => $item->getTitle()
+                'title' => $item->title
             );
 
             if ($subItems->count() > 0) {
                 $navigationItems[$index]['items'] = $this->_composeNavigation($subItems);
             } else {
                 $navigationItems[$index]['href'] = $item->getHref();
-                $navigationItems[$index]['target'] = $item->getTarget();
+                $navigationItems[$index]['target'] = $item->target;
             }
 
             $navigationItems[$index]['onclick'] = $item->getOnclick();
@@ -83,16 +74,15 @@ class Controller extends \Engine\Widget\Controller
             $tooltip = $item->getTooltip();
             if (!empty($tooltip)) {
                 $navigationItems[$index]['tooltip'] = $item->getTooltip();
-                $navigationItems[$index]['tooltip_position'] = $item->getTooltipPosition();
+                $navigationItems[$index]['tooltip_position'] = $item->icon_position;
             }
 
-            $icon = $item->getIcon();
-            if (!empty($icon)) {
-                $iconPosition = $item->getIconPosition();
-                if ($iconPosition == 'left') {
-                    $navigationItems[$index]['prepend'] = "<img class='nav-icon' alt='{$item->getTitle()}' src='{$icon}'/>";
+
+            if (!empty($item->icon)) {
+                if ($item->icon_position == 'left') {
+                    $navigationItems[$index]['prepend'] = "<img class='nav-icon nav-icon-left' alt='{$item->title}' src='{$item->icon}'/>";
                 } else {
-                    $navigationItems[$index]['append'] = "<img class='nav-icon' alt='{$item->getTitle()}' src='{$icon}'/>";
+                    $navigationItems[$index]['append'] = "<img class='nav-icon nav-icon-right' alt='{$item->title}' src='{$item->icon}'/>";
                 }
             }
 
@@ -102,4 +92,8 @@ class Controller extends \Engine\Widget\Controller
         return $navigationItems;
     }
 
+    public function isCached()
+    {
+        return true;
+    }
 }

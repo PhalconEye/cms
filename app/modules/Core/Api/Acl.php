@@ -16,7 +16,14 @@
 
 namespace Core\Api;
 
-class Acl implements \Engine\Api\ContainerInterface{
+use Engine\Api\ApiInterface,
+    Phalcon\DiInterface,
+    Phalcon\Acl as PhAcl,
+    Phalcon\Acl\Resource as AclResource,
+    Phalcon\Acl\Adapter\Memory as AclMemory;
+
+class Acl implements ApiInterface
+{
 
     const ACL_CACHE_KEY = "acl_data.cache";
     const ROLE_TYPE_ADMIN = 'admin';
@@ -38,7 +45,7 @@ class Acl implements \Engine\Api\ContainerInterface{
     /**
      * @param \Phalcon\DiInterface $di
      */
-    public function __construct(\Phalcon\DiInterface $di)
+    public function __construct(DiInterface $di)
     {
         $this->_di = $di;
     }
@@ -50,27 +57,30 @@ class Acl implements \Engine\Api\ContainerInterface{
      */
     public function _()
     {
-        if (!$this->_acl)
-        {
-            $acl = $this->_di->get('cacheData')->get(self::ACL_CACHE_KEY);
-            if ($acl === null){
-                $acl = new \Phalcon\Acl\Adapter\Memory();
-                $acl->setDefaultAction(\Phalcon\Acl::DENY);
+        if (!$this->_acl) {
+
+            $cacheData = $this->_di->get('cacheData');
+
+            $acl = $cacheData->get(self::ACL_CACHE_KEY);
+            if ($acl === null) {
+
+                $acl = new AclMemory();
+                $acl->setDefaultAction(PhAcl::DENY);
 
                 // prepare Roles
                 $roles = \User\Model\Role::find();
                 $roleNames = array();
-                foreach($roles as $role){
-                    $roleNames[$role->getId()] = $role->getName();
-                    $acl->addRole($role->getName());
+                foreach ($roles as $role) {
+                    $roleNames[$role->id] = $role->name;
+                    $acl->addRole($role->name);
                 }
 
                 // Defining admin area
-                $adminArea = new \Phalcon\Acl\Resource(self::ACL_ADMIN_AREA);
+                $adminArea = new AclResource(self::ACL_ADMIN_AREA);
                 $roleAdmin = \User\Model\Role::getRoleByType(self::ROLE_TYPE_ADMIN);
                 // Add "admin area" resource
                 $acl->addResource($adminArea, "access");
-                $acl->allow($roleAdmin->getName(), self::ACL_ADMIN_AREA, 'access');
+                $acl->allow($roleAdmin->name, self::ACL_ADMIN_AREA, 'access');
 
 
                 // Getting objects that is in acl
@@ -81,67 +91,81 @@ class Acl implements \Engine\Api\ContainerInterface{
                     )
                 );
                 $config = $this->_di->get('config');
-                foreach ( $this->_di->get('modules') as $module => $enabled) {
-                    if (!$enabled) continue;
-                    $moduleName = ucfirst($module);
-                    $files = scandir($config->application->modulesDir . $moduleName . '/Model'); // get all file names
+                foreach ($this->_di->get('modules') as $module => $enabled) {
 
-                    foreach ($files as $file) { // iterate files
-                        if ($file == "." || $file == "..") continue;
-                        $class = sprintf('\%s\Model\%s', $moduleName, ucfirst(str_replace('.php', '', $file)));
-                        $object = $this->getObjectAcl($class);
-                        if ($object == null) continue;
-
-                        $objects[$class]['actions'] = $object->actions;
-                        $objects[$class]['options'] = $object->options;
+                    if (!$enabled) {
+                        continue;
                     }
 
-                    // add objects to resources
-                    foreach ($objects as $key => $object) {
-                        if (empty($object['actions']))
-                            $object['actions'] = array();
-                        $acl->addResource($key, $object['actions']);
+                    $moduleName = ucfirst($module);
+
+                    $modelsPath = $config->application->modulesDir . $moduleName . '/Model';
+                    if (file_exists($modelsPath)) {
+
+                        $files = scandir($modelsPath); // get all file names
+
+                        foreach ($files as $file) { // iterate files
+                            if ($file == "." || $file == "..") {
+                                continue;
+                            }
+                            $class = sprintf('\%s\Model\%s', $moduleName, ucfirst(str_replace('.php', '', $file)));
+                            $object = $this->getObjectAcl($class);
+                            if ($object == null) continue;
+
+                            $objects[$class]['actions'] = $object->actions;
+                            $objects[$class]['options'] = $object->options;
+                        }
+
+                        // add objects to resources
+                        foreach ($objects as $key => $object) {
+                            if (empty($object['actions'])) {
+                                $object['actions'] = array();
+                            }
+                            $acl->addResource($key, $object['actions']);
+                        }
                     }
                 }
 
                 // load from database
                 $access = \Core\Model\Access::find();
 
-                foreach($access as $item){
-                    $value = $item->getValue();
+                foreach ($access as $item) {
 
-                    if (array_key_exists($item->getObject(), $objects) && in_array($item->getAction(), $objects[$item->getObject()]['actions']) && ($value == "allow" || $value == "deny")){
-                        $acl->$value($roleNames[$item->getRoleId()], $item->getObject(), $item->getAction());
+                    $value = $item->value;
+
+                    if (array_key_exists($item->object, $objects) && in_array($item->action, $objects[$item->object]['actions']) && ($value == "allow" || $value == "deny")) {
+                        $acl->$value($roleNames[$item->role_id], $item->object, $item->action);
                     }
                 }
 
-                $this->_di->get('cacheData')->save(self::ACL_CACHE_KEY, $acl, 2592000); // 30 days cache
+                $cacheData->save(self::ACL_CACHE_KEY, $acl, 2592000); // 30 days cache
             }
-
-
 
             $this->_acl = $acl;
         }
         return $this->_acl;
     }
 
-    public function getAllowedValue($objectName, \User\Model\Role $role, $option){
+    public function getAllowedValue($objectName, \User\Model\Role $role, $option)
+    {
         $result = \Core\Model\Access::findFirst(array(
             "conditions" => "object = ?1 AND action = ?2 AND role_id = ?3",
-            "bind"       => array(
+            "bind" => array(
                 1 => $objectName,
                 2 => $option,
-                3 => $role->getId()
+                3 => $role->id
             )
         ));
 
-        if ($result)
-            return $result->getValue();
+        if ($result) {
+            return $result->value;
+        }
 
         return null;
     }
 
-    public function getObjectAcl($objectName){
+    public function getObjectAcl($objectName)
+    {
         $object = new \stdClass();
         $object->name = $objectName;
         $object->actions = array();
@@ -156,17 +180,16 @@ class Acl implements \Engine\Api\ContainerInterface{
         $reader = new \Phalcon\Annotations\Adapter\Memory();
         $reflector = $reader->get($objectName);
         $annotations = $reflector->getClassAnnotations();
-        if ($annotations && $annotations->has('Acl')){
+        if ($annotations && $annotations->has('Acl')) {
             $annotation = $annotations->get('Acl');
 
-            if ($annotation->hasNamedArgument('actions')){
+            if ($annotation->hasNamedArgument('actions')) {
                 $object->actions = $annotation->getNamedParameter('actions');
             }
-            if ($annotation->hasNamedArgument('options')){
+            if ($annotation->hasNamedArgument('options')) {
                 $object->options = $annotation->getNamedParameter('options');
             }
-        }
-        else{
+        } else {
             return null;
         }
 
@@ -176,7 +199,8 @@ class Acl implements \Engine\Api\ContainerInterface{
     /**
      * Clear acl cache. The acl will be rewrited.
      */
-    public function clearAcl(){
+    public function clearAcl()
+    {
         $this->_di->get('cacheData')->delete(self::ACL_CACHE_KEY);
     }
 
@@ -185,16 +209,32 @@ class Acl implements \Engine\Api\ContainerInterface{
      */
     public function beforeDispatch(\Phalcon\Events\Event $event, \Phalcon\Mvc\Dispatcher $dispatcher)
     {
+        // check installation
+        if (!$this->_di->get('config')->installed) {
+            $this->_di->set('installationRequired', true);
+            if ($dispatcher->getControllerName() != 'install') {
+                return $dispatcher->forward(array(
+                    'module' => 'core',
+                    "controller" => "install",
+                    "action" => "index"
+                ));
+            }
+            return;
+        }
+
         $viewer = \User\Model\User::getViewer();
         $acl = $this->_();
 
         $controller = $dispatcher->getControllerName();
 
         // check admin area
-        if (substr($controller,0, 5) == 'admin'){
-            if ($acl->isAllowed($viewer->getRole()->getName(), self::ACL_ADMIN_AREA, 'access') != \Phalcon\Acl::ALLOW){
-                return  $dispatcher->forward(array(
-                    "controller" => '\Core\Controller\Error',
+        if (substr($controller, 0, 5) == 'admin') {
+
+            if ($acl->isAllowed($viewer->getRole()->name, self::ACL_ADMIN_AREA, 'access') != \Phalcon\Acl::ALLOW) {
+                return $dispatcher->forward(array(
+                    'module' => \Engine\Application::$defaultModule,
+                    'namespace' => ucfirst(\Engine\Application::$defaultModule) . '\Controller',
+                    "controller" => 'error',
                     "action" => 'show404'
                 ));
             }

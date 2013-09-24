@@ -15,44 +15,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?php echo \Core\Model\Settings::getSetting('system_title', '') ?> | {% block title %}{% endblock %}</title>
+    <title>{{ helper('core').Setting('system_title', '') }} | {% block title %}{% endblock %}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="PhalconEye - Open Source Content Management System" />
-    <link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css" />
-    <link rel="stylesheet" href="/public/themes/{{ helper('core').setting('system_theme', 'default') }}/theme.css"/>
-    {{ javascript_include("js/jquery/jquery-1.8.3.min.js") }}
-    {{ javascript_include("js/bootstrap/bootstrap.min.js") }}
+    <meta name="generator" content="PhalconEye - Open Source Content Management System"/>
 
+    {%- block head -%}
 
-    {% block head %}
-
-    {% endblock %}
+    {%- endblock -%}
 
 </head>
 <body>
-<div id="wrapper" class="container">
-    <div id="header" class="masthead">
+<div id="wrapper">
+    <div id="header">
+        {% if disableHeader is not defined %}
         {{ helper('core').renderContent('header') }}
-        {% block header %}
-        {% endblock %}
-    </div>
-    <div class="container">
-        <div class="row">
-            {{ content() }}
-        </div><!--/row-->
+        {% endif %}
 
-        <div class="row">
-            {% block content %}
-            {% endblock %}
-        </div><!--/row-->
+        {%- block header -%}
+        {%- endblock -%}
     </div>
+
+    <div class="system-container">
+        {{ content() }}
+    </div>
+
+    <div class="container">
+        {%- block content -%}
+        {%- endblock -%}
+    </div>
+
     <div id="footer">
+        {% if disableFooter is not defined %}
         {{ helper('core').renderContent('footer') }}
-        {% block footer %}
-        {% endblock %}
+        {% endif %}
+        {%- block footer -%}
+        {%- endblock -%}
     </div>
 </div>
+
+
+{{ assets.outputCss() }}
+{{ assets.outputJs() }}
 
 </body>
 </html>

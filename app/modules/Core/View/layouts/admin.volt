@@ -18,17 +18,6 @@
     <title>{% block title %}{% endblock %}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/css/admin.css"/>
-    {{ javascript_include("js/jquery/jquery-1.8.3.min.js") }}
-    {{ javascript_include("js/jquery/jquery-ui-1.9.0.custom.min.js") }}
-    {{ javascript_include("js/bootstrap/bootstrap.min.js") }}
-    {{ javascript_include("js/ckeditor/ckeditor.js") }}
-    {{ javascript_include("js/phalconeye/core.js") }}
-    {{ javascript_include("js/phalconeye/admin.js") }}
-    {{ javascript_include("js/phalconeye/modal.js") }}
-    {{ javascript_include("js/phalconeye/ajaxplorer.js") }}
-
     {% block head %}
 
     {% endblock %}
@@ -40,8 +29,8 @@
 <div class="navbar navbar_panel">
     <div class="navbar-inner">
         <div class="container">
-            <a class="brand" href="{{ url("admin") }}"><img alt="Pahlcon Eye"
-                                                            src="/public/img/phalconeye/PE_logo_white.png"/></a>
+            <a class="brand" href="{{ url("admin") }}"><img alt="Phalcon Eye"
+                                                            src="{{ url('assets/img/core/pe_logo_white.png') }}"/></a>
 
             <div class="nav-collapse collapse">
                 {{ headerNavigation.render() }}
@@ -58,8 +47,8 @@
 
 <div class="content">
 
-    {% block header %}
-    {% endblock %}
+    {% block header -%}
+    {%- endblock %}
 
     <div class="row-fluid row-after-header">
         <div>
@@ -70,8 +59,8 @@
 
     <div class="row-fluid">
         <!--/row-->
-        {% block content %}
-        {% endblock %}
+        {%- block content -%}
+        {%- endblock %}
     </div>
     <!--/row-->
 </div>
@@ -79,6 +68,19 @@
 <div id="footer">
     Phalcon Eye v.<?php echo PE_VERSION ?> <br/>[{{ date('d-m-Y H:i:s') }}]
 </div>
+
+
+<link rel="stylesheet" href="{{ url("external/bootstrap/bootstrap.min.css") }}"/>
+<link rel="stylesheet" href="{{ url("external/phalconeye/css/admin.css") }}"/>
+{{ javascript_include("assets/js/core/1-jquery-1.8.3.js") }}
+{{ javascript_include("assets/js/core/1-jquery-ui-1.9.0.js") }}
+{{ javascript_include("external/bootstrap/bootstrap.min.js") }}
+{{ javascript_include("external/ckeditor/ckeditor.js") }}
+{{ javascript_include("assets/js/core/2-core.js") }}
+{{ javascript_include("assets/js/core/3-modal.js") }}
+{{ javascript_include("external/phalconeye/js/admin.js") }}
+{{ javascript_include("external/phalconeye/js/ajaxplorer.js") }}
+
 
 </body>
 </html>

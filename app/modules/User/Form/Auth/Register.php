@@ -22,14 +22,15 @@ class Register extends \Engine\Form
     {
         $this
             ->setOption('title', "Register")
-            ->setOption('description', "Register your account!");
+            ->setOption('description', "Register your account!")
+            ->setAttrib('autocomplete', 'off');
 
 
         $this->addElement('text', 'username', array(
             'label' => 'Username',
             'required' => true,
             'validators' => array(
-                new \Engine\Validator\StringLength(array(
+                new \Engine\Form\Validator\StringLength(array(
                     'min' => 2,
                 ))
             )
@@ -37,17 +38,21 @@ class Register extends \Engine\Form
 
         $this->addElement('text', 'email', array(
             'label' => 'Email',
+            'autocomplete' => 'off',
+            'description' => 'You will use your email address to login.',
             'required' => true,
             'validators' => array(
-                new \Engine\Validator\Email()
+                new \Engine\Form\Validator\Email()
             )
         ));
 
         $this->addElement('password', 'password', array(
             'label' => 'Password',
+            'autocomplete' => 'off',
+            'description' => 'Passwords must be at least 6 characters in length.',
             'required' => true,
             'validators' => array(
-                new \Engine\Validator\StringLength(array(
+                new \Engine\Form\Validator\StringLength(array(
                     'min' => 6,
                 ))
             )
@@ -55,9 +60,11 @@ class Register extends \Engine\Form
 
         $this->addElement('password', 'repeatPassword', array(
             'label' => 'Password Repeat',
+            'autocomplete' => 'off',
+            'description' => 'Enter your password again for confirmation.',
             'required' => true,
             'validators' => array(
-                new \Engine\Validator\StringLength(array(
+                new \Engine\Form\Validator\StringLength(array(
                     'min' => 6,
                 ))
             )
