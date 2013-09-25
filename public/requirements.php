@@ -34,7 +34,7 @@ $allPassed = true;
 
 foreach ($checkPath as $path) {
     $is_writable = is_writable($path);
-    if (!$is_writable) {
+    if (!$is_writable && PATH_SEPARATOR==':') {
         echo "{$path} isn't writable.</br>";
     }
 
