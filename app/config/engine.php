@@ -24,13 +24,13 @@
 
 return new \Phalcon\Config(array (
   'installed' => false,
-  'installedVersion' => null,
+  'installedVersion' => '0.4.0',
   'database' => 
   array (
     'adapter' => 'Mysql',
     'host' => 'localhost',
     'username' => 'root',
-    'password' => 'root',
+    'password' => 'miniserver',
     'dbname' => 'phalconeye',
   ),
   'application' => 
@@ -38,44 +38,44 @@ return new \Phalcon\Config(array (
     'debug' => false,
     'profiler' => true,
     'baseUri' => '/',
-    'engineDir' => ROOT_PATH . '/app/engine/',
-    'modulesDir' => ROOT_PATH . '/app/modules/',
-    'pluginsDir' => ROOT_PATH . '/app/plugins/',
-    'widgetsDir' => ROOT_PATH . '/app/widgets/',
-    'librariesDir' => ROOT_PATH . '/app/libraries/',
+    'engineDir' => 'D:\\MiniServer\\www\\htdocs\\phalconeye/app/engine/',
+    'modulesDir' => 'D:\\MiniServer\\www\\htdocs\\phalconeye/app/modules/',
+    'pluginsDir' => 'D:\\MiniServer\\www\\htdocs\\phalconeye/app/plugins/',
+    'widgetsDir' => 'D:\\MiniServer\\www\\htdocs\\phalconeye/app/widgets/',
+    'librariesDir' => 'D:\\MiniServer\\www\\htdocs\\phalconeye/app/libraries/',
     'cache' => 
     array (
       'lifetime' => '86400',
       'prefix' => 'pe_',
       'adapter' => 'File',
-      'cacheDir' => ROOT_PATH . '/app/var/cache/data/',
+      'cacheDir' => 'D:\\MiniServer\\www\\htdocs\\phalconeye/app/var/cache/data/',
     ),
     'logger' => 
     array (
       'enabled' => true,
-      'path' => ROOT_PATH . '/app/var/logs/',
+      'path' => 'D:\\MiniServer\\www\\htdocs\\phalconeye/app/var/logs/',
       'format' => '[%date%][%type%] %message%',
     ),
     'view' => 
     array (
-      'compiledPath' => ROOT_PATH . '/app/var/cache/view/',
+      'compiledPath' => 'D:\\MiniServer\\www\\htdocs\\phalconeye/app/var/cache/view/',
       'compiledExtension' => '.php',
     ),
     'assets' => 
     array (
-      'local' => PUBLIC_PATH . '/assets/',
+      'local' => 'D:\\MiniServer\\www\\htdocs\\phalconeye\\public/assets/',
       'remote' => '/',
     ),
   ),
   'metadata' => 
   array (
     'adapter' => 'Files',
-    'metaDataDir' => ROOT_PATH . '/app/var/cache/metadata/',
+    'metaDataDir' => 'D:\\MiniServer\\www\\htdocs\\phalconeye/app/var/cache/metadata/',
   ),
   'annotations' => 
   array (
     'adapter' => 'Files',
-    'annotationsDir' => ROOT_PATH . '/app/var/cache/annotations/',
+    'annotationsDir' => 'D:\\MiniServer\\www\\htdocs\\phalconeye/app/var/cache/annotations/',
   ),
   'modules' => 
   array (
