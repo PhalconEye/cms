@@ -36,7 +36,7 @@ class Utilities
         foreach ($it as $item) {
             $itemPath = $item->getPathname();
             $partial = str_replace($source, '', $itemPath);
-            if (in_array($partial, $excludeNames)) {
+            if (in_array($partial, $excludeNames) || in_array(basename($itemPath), $excludeNames)) {
                 continue;
             }
             if ($partial == '.' || $partial == '..') continue;
@@ -45,12 +45,12 @@ class Utilities
             // Ignore errors on mkdir (only fail if the file fails to copy
             if ($item->isDir()) {
                 if (!is_dir($fDest))
-                    @mkdir($fDest, $item->getPerms(), 0755, true);
+                    @mkdir($fDest, $item->getPerms(), true);
             } else if ($item->isFile()) {
                 if ($statFiles && (is_file($fDest) && filemtime($itemPath) <= filemtime($fDest))) {
                     continue;
                 }
-                
+
                 if (!copy($itemPath, $fDest)) {
                     throw new Exception('Unable to copy.');
                 }

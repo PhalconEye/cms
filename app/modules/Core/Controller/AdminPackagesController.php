@@ -23,7 +23,6 @@ use Engine\Package\Exception;
  */
 class AdminPackagesController extends \Core\Controller\BaseAdmin
 {
-
     public function init()
     {
         $navigation = new \Engine\Navigation();
@@ -351,9 +350,9 @@ class AdminPackagesController extends \Core\Controller\BaseAdmin
                         'name' => $widget->name,
                         'module' => $name,
                         'description' => $widget->description,
-                        'is_paginated' => $widget->isPaginated,
-                        'is_acl_controlled' => $widget->isAclControlled,
-                        'admin_form' => $widget->adminForm,
+                        'is_paginated' => $widget->is_paginated,
+                        'is_acl_controlled' => $widget->is_acl_controlled,
+                        'admin_form' => $widget->admin_orm,
                         'enabled' => (bool)$widget->enabled,
                     );
                 }
