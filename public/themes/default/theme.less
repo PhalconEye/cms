@@ -14,8 +14,8 @@
 @import "constants";
 
 body {
-  background: url('@{baseUrl}themes/default/images/body-bg.png') repeat;
   font-family: @font;
+  margin: 0;
 }
 
 img {
@@ -129,7 +129,6 @@ button {
 }
 
 #general-content-full {
-  margin: 10px;
 }
 
 #content-left-left {
@@ -150,31 +149,14 @@ button {
   margin: 0 auto;
 }
 
-.general_container {
-
+.widget_wrapper {
+  clear: both;
 }
 
-#header .widget_wrapper {
-  margin: 0 10px;
-}
-
-#header .widget_container {
+.widget_container {
   padding: 0;
 }
-
-#header #general-content-full {
-  margin: 0;
-}
-
-.container {
-  padding: 10px 0;
-}
-
-.container .widget_container {
-  padding: 10px;
-}
-
-.container .widget_container p {
+.widget_container p {
   margin: 0;
 }
 
@@ -184,14 +166,13 @@ button {
 
 .widget_wrapper + .widget_wrapper {
   margin-top: 5px;
-
 }
 
-.container .widget_header {
+.widget_header {
   padding: 5px;
 }
 
-.container .widget_header h3 {
+.widget_header h3 {
   font-size: 1.2em;
   font-weight: 700;
   margin: 5px;
@@ -333,7 +314,7 @@ form .form_elements select {
 }
 
 .navbar .nav {
-  height: 35px;
+  margin: 0;
 }
 
 .navbar ul {
@@ -353,25 +334,23 @@ form .form_elements select {
 
 .navbar .nav > li {
   float: left;
-  margin-right: 10px;
   position: relative;
-}
-
-.navbar .nav > li > a {
-  height: 20px;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 1px rgba(255, 255, 255, 0.05);
 }
 
 .navbar .nav li > a {
   display: block;
-  padding: 5px 10px;
-  background-color: rgba(255, 255, 255, .5);
+  padding: 10px 30px;
+  background-color: rgba(255, 255, 255, 0.03);
   text-decoration: none;
-  color: @h_color;
-  text-shadow: 0px 0px 1px grey;
-}
-
-.navbar .nav li > a:hover {
-  background-color: rgba(207, 207, 207, 0.32);
+  color: #B8B8B8;
+  font-size: 1.14em;
+  .active,
+  &:hover {
+    color: #FFFFFF;
+    background-color: rgba(185, 190, 185, 0.18)
+  }
 }
 
 .navbar .nav > li.dropdown:hover > .dropdown-menu {
@@ -448,8 +427,12 @@ form .form_elements select {
   box-shadow: 0px 0px 2px grey;
 }
 
+#header {
+  background-color: #2D2D2D;
+}
+
 .header_logo {
-  float: left;
+  //  float: left;
 }
 
 .header_logo img {
