@@ -1,0 +1,51 @@
+/**
+ * PhalconEye
+ *
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file LICENSE.txt.
+ *
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to phalconeye@gmail.com so we can send you a copy immediately.
+ *
+ */
+
+
+#header {
+  background-color: #2D2D2D;
+}
+
+.header_logo {
+  //  float: left;
+}
+
+.header_logo img {
+  max-width: 250px;
+  max-height: 150px;
+}
+
+.header_logo a {
+  font-family: comic sans ms, cursive;
+}
+
+.header_widget {
+  padding-bottom: 10px;
+}
+
+.header_auth a {
+  background-color: #404040;
+  border-bottom: 1px inset rgb(75, 75, 75);
+  color: #b8b8b8;
+  display: block;
+  line-height: 30px;
+  padding: 5px 20px;
+  text-decoration: none;
+  .transition(all 0.25 ease);
+  .active,
+  &:hover {
+    color: #fff;
+    background-color: #6a6a6a;
+  }
+}

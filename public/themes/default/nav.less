@@ -1,0 +1,82 @@
+/**
+ * PhalconEye
+ *
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file LICENSE.txt.
+ *
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to phalconeye@gmail.com so we can send you a copy immediately.
+ *
+ */
+
+.navbar {
+
+}
+
+.navbar .nav {
+  margin: 0;
+}
+
+.navbar ul {
+  list-style: none;
+  padding-left: 0px;
+}
+
+.navbar ul li .dropdown-menu {
+  display: none;
+  position: absolute;
+  width: 150px;
+}
+
+.navbar ul li .dropdown-menu li.dropdown-submenu {
+  position: relative;
+}
+
+.navbar .nav > li {
+  .box-shadow(1px 1px rgba(255, 255, 255, 0.05));
+  float: left;
+  position: relative;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.navbar .nav li > a {
+  background-color: #404040;
+  border-bottom: 1px inset rgb(75, 75, 75);
+  color: #b8b8b8;
+  display: block;
+  line-height: 30px;
+  padding: 5px 20px;
+  text-decoration: none;
+  .active,
+  &:hover {
+    color: #fff;
+    background-color: #6a6a6a;
+  }
+}
+
+.navbar .nav > li.dropdown:hover > .dropdown-menu {
+  display: block;
+}
+
+.navbar .nav li.dropdown li.dropdown-submenu:hover > .dropdown-menu {
+  display: block;
+  top: 0px;
+  left: 150px;
+}
+
+.nav .nav-icon {
+  max-width: 20px;
+  max-height: 20px;
+  vertical-align: middle;
+}
+
+.nav .nav-icon-left {
+  margin-right: 7px;
+}
+
+.nav .nav-icon-right {
+  margin-left: 7px;
+}
