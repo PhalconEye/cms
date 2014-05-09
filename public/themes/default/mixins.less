@@ -12,23 +12,24 @@
  *
  */
 
-.container_block() {
-  background-color: @container_bg_color;
-  box-shadow: 0 0 5px #ddd;
-  border: 1px solid rgba(0, 0, 0, .12);
-}
 
-.transition(@scope: all, @delay: 0.25, @ease: ease) {
-  -webkit-transition: @scope @delay @ease;
-  -moz-transition: @scope @delay @ease;
-  -ms-transition: @scope @delay @ease;
-  -o-transition: @scope @delay @ease;
-  transition: @scope @delay @ease;
+.border-radius (@radius: 5px) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  border-radius: @radius;
 }
 
 .box-shadow(@x, @y, @blur, @color) {
   box-shadow: @arguments;
   -webkit-box-shadow: @arguments;
   -moz-box-shadow: @arguments;
+}
+
+.transition(@scope: all, @delay: 0.25s, @ease: ease) {
+  -webkit-transition: @scope @delay @ease;
+  -moz-transition: @scope @delay @ease;
+  -ms-transition: @scope @delay @ease;
+  -o-transition: @scope @delay @ease;
+  transition: @scope @delay @ease;
 }
 

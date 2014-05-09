@@ -13,39 +13,43 @@
  */
 
 
-#header {
-  background-color: #2D2D2D;
+#header a {
+  font-size: 1.1em;
 }
 
 .header_logo {
-  //  float: left;
+  float: left;
+  margin: 5px 15px
 }
 
 .header_logo img {
-  max-width: 250px;
-  max-height: 150px;
+  height: 37px;
 }
 
 .header_logo a {
-  font-family: comic sans ms, cursive;
+  color: #fff;
 }
 
 .header_widget {
-  padding-bottom: 10px;
+  // padding-bottom: 10px;
+}
+
+.header_auth {
+  float: right;
+  color: #fff;
+  margin: 5px;
 }
 
 .header_auth a {
-  background-color: #404040;
-  border-bottom: 1px inset rgb(75, 75, 75);
-  color: #b8b8b8;
-  display: block;
+  background-color: #428BCA;
+  border-right: 1px solid rgba(255, 255, 255, 0.03);
+  border-left: 1px solid rgba(255, 255, 255, 0.03);
+  border-bottom: 1px inset #4b4b4b;
+  color: #fff;
+  display: inline-block;
   line-height: 30px;
   padding: 5px 20px;
-  text-decoration: none;
-  .transition(all 0.25 ease);
-  .active,
   &:hover {
-    color: #fff;
-    background-color: #6a6a6a;
+    border-bottom: 1px solid #428bca;
   }
 }

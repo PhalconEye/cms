@@ -42,21 +42,6 @@
   border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.navbar .nav li > a {
-  background-color: #404040;
-  border-bottom: 1px inset rgb(75, 75, 75);
-  color: #b8b8b8;
-  display: block;
-  line-height: 30px;
-  padding: 5px 20px;
-  text-decoration: none;
-  .active,
-  &:hover {
-    color: #fff;
-    background-color: #6a6a6a;
-  }
-}
-
 .navbar .nav > li.dropdown:hover > .dropdown-menu {
   display: block;
 }
@@ -79,4 +64,21 @@
 
 .nav .nav-icon-right {
   margin-left: 7px;
+}
+
+.navbar .nav li > a {
+  background-color: #404040;
+  border-bottom: 1px inset #4b4b4b;
+  color: #b8b8b8;
+  display: inline-block;
+  line-height: 30px;
+  padding: 5px 20px;
+  text-decoration: none;
+  .transition();
+  .active,
+  &:hover {
+    background-color: #6a6a6a;
+    border-bottom: 1px solid #428bca;
+    color: #fff;
+  }
 }
