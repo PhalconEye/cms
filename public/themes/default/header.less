@@ -12,18 +12,13 @@
  *
  */
 
-
-#header a {
-  font-size: 1.1em;
-}
-
-.header_logo {
-  float: left;
-  margin: 5px 15px
+#header {
+  font-size: @fontSizeHeader;
 }
 
 .header_logo img {
   height: 37px;
+  margin: 4px 15px
 }
 
 .header_logo a {
@@ -35,19 +30,24 @@
 }
 
 .header_auth {
-  float: right;
   color: #fff;
-  margin: 5px;
+  margin: 4px;
+  font-size: 0;
+}
+
+.header_auth span {
+  font-size: @fontSizeHeader;
+  margin: 0 5px;
 }
 
 .header_auth a {
   background-color: #428BCA;
-  border-right: 1px solid rgba(255, 255, 255, 0.03);
-  border-left: 1px solid rgba(255, 255, 255, 0.03);
   border-bottom: 1px inset #4b4b4b;
   color: #fff;
   display: inline-block;
-  line-height: 30px;
+  margin-right: 1px;
+  font-size: @fontSizeHeader;
+  line-height: 25px;
   padding: 5px 20px;
   &:hover {
     border-bottom: 1px solid #428bca;
