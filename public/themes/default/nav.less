@@ -11,63 +11,147 @@
  * to phalconeye@gmail.com so we can send you a copy immediately.
  *
  */
-
-.navbar ul {
-  list-style: none;
-  padding: 0px;
-}
-
-.navbar ul li .dropdown-menu {
-  display: none;
-  position: absolute;
-  width: 150px;
-}
-
-.navbar .nav > li,
-.navbar ul li .dropdown-menu li.dropdown-submenu {
+.navbar {
   position: relative;
-}
+  min-height: @buttonNavHeight + 12;
 
-.navbar .nav > li.dropdown:hover > .dropdown-menu {
-  display: block;
-}
+  .nav {
 
-.navbar .nav li.dropdown li.dropdown-submenu:hover > .dropdown-menu {
-  display: block;
-  top: 0px;
-  left: 150px;
-}
+    li {
+        a {
+        background-color: @buttonNavBgColor;
+        border-bottom: 1px solid @buttonNavBorderColor;
+        border-left: 1px inset @buttonNavBorderColor;
+        border-right: 1px solid @buttonNavBorderColor;
+        color: @buttonNavColor;
+        display: inline-block;
+        line-height: @buttonNavHeight;
+        padding: 0.2*@buttonNavHeight 0.8*@buttonNavHeight;
+        margin-right: 1px;
+        text-decoration: none;
+        height: @buttonNavHeight;
+        min-width: 3 * @buttonNavHeight;
+        .transition();
 
-.nav .nav-icon {
-  max-width: 20px;
-  max-height: 20px;
-  vertical-align: middle;
-}
+        .active, &:hover {
+          background-color: @buttonNavBorderColor;
+          border-bottom: 1px solid #428bca;
+          color: #fff;
+        }
+      }
 
-.nav .nav-icon-left {
-  margin-right: 7px;
-}
+      @media screen and (min-width: @viewportTablet) {
 
-.nav .nav-icon-right {
-  margin-left: 7px;
-}
+        &.dropdown  {
+          & > a {
+            padding-right: 23px;
 
-.navbar .nav li > a {
-  background-color: @buttonNavBgColor;
-  border-bottom: 1px solid @buttonNavBorderColor;
-  border-left: 1px inset @buttonNavBorderColor;
-  border-right: 1px solid @buttonNavBorderColor;
-  color: @buttonNavColor;
-  display: inline-block;
-  line-height: 25px;
-  padding: 5px 20px;
-  margin-right: 1px;
-  text-decoration: none;
-  .transition();
-  .active,
-  &:hover {
-    background-color: @buttonNavBorderColor;
-    border-bottom: 1px solid #428bca;
-    color: #fff;
+            &.dropdown-toggle:after {
+              content: "▼";
+              font-size: 10px;
+              position: absolute;
+              right: 10px;
+              top: 7px
+            }
+          }
+          li.dropdown-submenu:hover > .dropdown-menu {
+            display: block;
+            top: 0px;
+            left: 3 * @buttonNavHeight + 44px;
+          }
+        }
+      }
+    }
+
+    .nav-icon {
+      max-width: 20px;
+      max-height: 20px;
+      vertical-align: middle;
+    }
+
+    .nav-icon-left {
+      margin-right: 7px;
+    }
+
+    .nav-icon-right {
+      margin-left: 7px;
+    }
+
+    & > li.dropdown:hover > .dropdown-menu {
+      display: block;
+    }
+  }
+
+  ul {
+    list-style: none;
+    padding: 0px;
+    margin: 0;
+
+    li {
+      position: relative;
+
+      .dropdown-menu {
+
+        // Smartphone
+        @media screen and (max-width: (@viewportTablet - 1)) {
+          a:before {
+            border-left: 1px solid #6A6A6A;
+            content: " ";
+            margin-left: -20px;
+            padding-right: 10px;
+          }
+        }
+
+          // Tablet and desktop
+        @media screen and (min-width: @viewportTablet) {
+          display: none;
+          position: absolute;
+
+          a {
+            width: 3 * @buttonNavHeight;
+            padding-right: 23px;
+
+            &.dropdown-toggle:after {
+              content: "►";
+              font-size: 10px;
+              position: absolute;
+              right: 10px;
+              top: 7px
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .navbar-toggle {
+    display: none;
+  }
+
+  .navbar-handle {
+    background-color: #FFF;
+    color: @buttonNavBgColor;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 33px;
+    padding: 3px;
+    height: 14px;
+    margin: 8px (0.5 * @buttonNavHeight) 0;
+    &:before, &:after {
+      position: absolute;
+      left: 0;
+      right: 0;
+      content: ' ';
+      border-top: 7px solid;
+    }
+    &:before {
+      top: 11px;
+    }
+    &:after {
+      top: 2px;
+    }
   }
 }
+

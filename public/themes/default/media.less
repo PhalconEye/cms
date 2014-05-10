@@ -12,27 +12,97 @@
  *
  */
 
-/* Smartphones */
+/* Smartphones first */
 @media screen and (max-width: (@viewportTablet - 1)) {
-  .header_logo, .header_auth span { display: none }
-  .nav a { width: 100% }
-  .navbar .nav > li { width: 100% }
 
-  .header_auth { margin: 0 }
-  .header_auth a { width: 100% }
+  // Hide logo
+  .header_logo {
+    display: none;
+  }
+
+  .navbar {
+
+    overflow-x: hidden;
+    background-color: @buttonNavBgColor;
+
+    .nav  {
+      & > li, a {
+        // Widen nav items
+        width: 100%;
+      }
+
+      li > a:hover {
+        background-color: @buttonNavBgColor;
+      }
+
+      // Nested menu
+      .dropdown-menu a {
+          padding-left: 40px;
+      }
+      .dropdown-submenu .dropdown-menu a {
+          padding-left: 60px;
+      }
+    }
+
+    // Hide navigation by default
+    .navbar-inner {
+      display: none;
+    }
+
+    // Show nav handle
+    .navbar-handle, .navbar-toggle:checked + .navbar-inner {
+      display: block;
+    }
+  }
+
+  .header_auth {
+    margin: 0;
+    position: absolute;
+    right: 2.5 * @buttonNavHeight;
+    z-index: 3;
+
+    // Hide welcome...
+    span {
+      display: none
+    }
+    a {
+      background-color: @buttonNavBgColor;
+      border-left: 1px solid @buttonNavBorderColor;
+    }
+  }
 }
 
 /* Tablets */
 @media screen and (min-width: @viewportTablet) and (max-width: (@viewportDesktop - 1)) {
-  .header_auth span { display: none }
-  .header_logo { float: left }
-  .header_auth { float: right }
-  .navbar .nav > li { float: left }
+  .header_logo {
+    float: left
+  }
+  .header_auth {
+    float: right;
+    span {
+      display: none
+    }
+  }
+  .navbar .nav > li {
+    float: left
+  }
+  .navbar-handle {
+    display: none;
+  }
 }
 
 /* Desktops and Laptops */
 @media screen and (min-width: @viewportDesktop) {
-  .header_logo { float: left }
-  .header_auth { float: right }
-  .navbar .nav > li { float: left }
+  .header_logo {
+    float: left
+  }
+  .header_auth {
+    float: right
+  }
+  .navbar .nav > li {
+    float: left
+  }
+  .navbar-handle {
+    display: none;
+  }
 }

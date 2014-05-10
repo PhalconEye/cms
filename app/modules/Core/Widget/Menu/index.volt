@@ -19,8 +19,10 @@
 
 {% block content %}
     <div class="navbar">
+        <input type="checkbox" class="navbar-toggle"  id="{{ navigation.getId() ~ '-toggle' }}" />
         <div class="navbar-inner">
             {{ navigation.render() }}
         </div>
+        <label class="navbar-handle" for="{{ navigation.getId() ~ '-toggle' }}" />
     </div>
 {% endblock %}

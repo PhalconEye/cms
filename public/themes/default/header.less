@@ -34,14 +34,11 @@
 
 .header_auth a {
   background-color: @buttonSpecialBgColor;
-  border-bottom: 1px inset @buttonNavBgColor;
   color: #FFF;
   display: inline-block;
   margin-right: 1px;
   font-size: @fontSizeHeader;
-  line-height: 25px;
-  padding: 5px 20px;
-  &:hover {
-    border-bottom: 1px solid @buttonSpecialBgColor;
-  }
+  line-height: @buttonNavHeight;
+  padding: 0.2*@buttonNavHeight 0.8*@buttonNavHeight;
+  height: @buttonNavHeight;
 }
