@@ -14,6 +14,7 @@
 
 #header {
   font-size: @fontSizeHeader;
+  color: #FFF;
 }
 
 .header_logo img {
@@ -21,35 +22,26 @@
   margin: 4px 15px
 }
 
-.header_logo a {
-  color: #fff;
-}
-
-.header_widget {
-  // padding-bottom: 10px;
-}
-
 .header_auth {
-  color: #fff;
   margin: 4px;
   font-size: 0;
 }
 
 .header_auth span {
   font-size: @fontSizeHeader;
-  margin: 0 5px;
+  margin: 0 10px;
 }
 
 .header_auth a {
-  background-color: #428BCA;
-  border-bottom: 1px inset #4b4b4b;
-  color: #fff;
+  background-color: @buttonSpecialBgColor;
+  border-bottom: 1px inset @buttonNavBgColor;
+  color: #FFF;
   display: inline-block;
   margin-right: 1px;
   font-size: @fontSizeHeader;
   line-height: 25px;
   padding: 5px 20px;
   &:hover {
-    border-bottom: 1px solid #428bca;
+    border-bottom: 1px solid @buttonSpecialBgColor;
   }
 }
