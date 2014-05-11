@@ -31,10 +31,6 @@
         width: 100%;
       }
 
-      li > a:hover {
-        background-color: @buttonNavBgColor;
-      }
-
       // Nested menu
       .dropdown-menu a {
           padding-left: 40px;
@@ -45,12 +41,24 @@
     }
 
     // Hide navigation by default
-    .navbar-inner {
+    .navbar-inner li {
       display: none;
     }
 
-    // Show nav handle
-    .navbar-handle, .navbar-toggle:checked + .navbar-inner {
+    // Show first nav item and handle
+    .navbar-inner > ul > li:first-child {
+      display: block;
+      a {
+        max-width: ~"calc(100% - 100px)";
+        &:hover {
+          background-color: @buttonNavBgColor;
+        }
+      }
+    }
+    .navbar-handle {
+      display: block;
+    }
+    .navbar-toggle:checked + .navbar-inner li {
       display: block;
     }
   }
