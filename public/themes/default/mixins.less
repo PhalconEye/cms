@@ -12,14 +12,13 @@
  *
  */
 
-
 .border-radius (@radius: 5px) {
   -webkit-border-radius: @radius;
   -moz-border-radius: @radius;
   border-radius: @radius;
 }
 
-.box-shadow(@x, @y, @blur, @color) {
+.box-shadow(@arguments) {
   -webkit-box-shadow: @arguments;
   -moz-box-shadow: @arguments;
   box-shadow: @arguments;
@@ -38,4 +37,3 @@
   -o-transition: @scope @delay @ease;
   transition: @scope @delay @ease;
 }
-
