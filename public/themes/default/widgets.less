@@ -12,31 +12,28 @@
  *
  */
 
-.widget_wrapper {
+article.widget {
   clear: both;
+
+  header {
+    padding: 5px;
+
+    h3 {
+      font-size: 1.2em;
+      font-weight: 700;
+      margin: 5px;
+    }
+  }
 }
 
-.widget_container {
-  padding: 0;
-}
-.widget_container p {
-  margin: 0;
-}
-
-.main_widget_container .widget_wrapper {
-  .container_block();
-}
-
-.widget_wrapper + .widget_wrapper {
+article.widget + article.widget {
   margin-top: 5px;
 }
 
-.widget_header {
-  padding: 5px;
-}
+.widget-body {
+  padding: 0;
 
-.widget_header h3 {
-  font-size: 1.2em;
-  font-weight: 700;
-  margin: 5px;
+  p {
+    margin: 0;
+  }
 }

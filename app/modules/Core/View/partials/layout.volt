@@ -17,29 +17,29 @@
 
 {# TOP #}
 {% if "top" in (content|keys) %}
-    <div id="general-content-full-top">
-        {% for widget in content["top"] %}
-            {{ helper('renderer', 'core').renderWidgetId(widget.widget_id, widget.getParams()) }}
-        {% endfor %}
-    </div>
+    <section class="content-full-top">
+    {% for widget in content["top"] %}
+        {{ helper('renderer', 'core').renderWidgetId(widget.widget_id, widget.getParams()) }}
+    {% endfor %}
+    </section>
 {% endif %}
 
 {# LEFT #}
 {% if "left" in (content|keys) %}
-    <div id="general-content-left">
+    <section class="content-left">
         {% for widget in content["left"] %}
             {{ helper('renderer', 'core').renderWidgetId(widget.widget_id, widget.getParams()) }}
         {% endfor %}
-    </div>
+    </section>
 {% endif %}
 
 {# RIGHT #}
 {% if "right" in (content|keys) %}
-    <div id="general-content-right">
+    <section class="content-right">
         {% for widget in content["right"] %}
             {{ helper('renderer', 'core').renderWidgetId(widget.widget_id, widget.getParams()) }}
         {% endfor %}
-    </div>
+    </section>
 {% endif %}
 
 {# MIDDLE #}
@@ -47,46 +47,46 @@
 
     {# LEFT MIDDLE RIGHT #}
     {% if ("right" in (content|keys)) and ("left" in (content|keys)) %}
-        <div id="general-content">
+        <section class="content">
             {% for widget in content["middle"] %}
                 {{ helper('renderer', 'core').renderWidgetId(widget.widget_id, widget.getParams()) }}
             {% endfor %}
-        </div>
+        </section>
     {% endif %}
     {# MIDDLE RIGHT #}
     {% if ("right" in (content|keys)) and ("left" not in (content|keys)) %}
-        <div id="general-content-column-left">
+        <section class="content-column-left">
             {% for widget in content["middle"] %}
                 {{ helper('renderer', 'core').renderWidgetId(widget.widget_id, widget.getParams()) }}
             {% endfor %}
-        </div>
+        </section>
     {% endif %}
     {# LEFT MIDDLE#}
     {% if ("left" in (content|keys)) and ("right" not in (content|keys)) %}
-        <div id="general-content-column-right">
+        <section class="content-column-right">
             {% for widget in content["middle"] %}
                 {{ helper('renderer', 'core').renderWidgetId(widget.widget_id, widget.getParams()) }}
             {% endfor %}
-        </div>
+        </section>
 
         {# FULL MIDDLE#}
     {% endif %}
 
     {% if ("right" not in (content|keys)) and ("left" not in (content|keys)) %}
-        <div id="general-content-full">
+        <section class="content-full">
             {% for widget in content["middle"] %}
                 {{ helper('renderer', 'core').renderWidgetId(widget.widget_id, widget.getParams()) }}
             {% endfor %}
-        </div>
+        </section>
     {% endif %}
 
 {% endif %}
 
 {# BOTTOM #}
 {% if "bottom" in (content|keys) %}
-    <div id="general-content-full-bottom">
-        {% for widget in content["bottom"] %}
-            {{ helper('renderer', 'core').renderWidgetId(widget.widget_id, widget.getParams()) }}
-        {% endfor %}
-    </div>
+    <section class="content-full-bottom">
+    {% for widget in content["bottom"] %}
+        {{ helper('renderer', 'core').renderWidgetId(widget.widget_id, widget.getParams()) }}
+    {% endfor %}
+    </section>
 {% endif %}

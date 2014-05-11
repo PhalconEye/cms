@@ -25,6 +25,12 @@
   box-shadow: @arguments;
 }
 
+.box-sizing(@type: border-box) {
+  -webkit-box-sizing: @type;
+  -moz-box-sizing: @type;
+  box-sizing: @type;
+}
+
 .transition(@scope: all, @delay: 0.25s, @ease: ease) {
   -webkit-transition: @scope @delay @ease;
   -moz-transition: @scope @delay @ease;
