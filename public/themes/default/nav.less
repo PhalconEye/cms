@@ -15,9 +15,8 @@
   position: relative;
 
   .nav {
-
     li {
-        a {
+      a {
         background-color: @buttonNavBgColor;
         border-bottom: 1px solid @buttonNavBorderColor;
         border-left: 1px inset @buttonNavBorderColor;
@@ -102,7 +101,7 @@
           }
         }
 
-          // Tablet and desktop
+        // Tablet and desktop
         @media screen and (min-width: @viewportTablet) {
           display: none;
           position: absolute;
@@ -110,7 +109,6 @@
           a {
             width: 3 * @buttonNavHeight;
             padding-right: 23px;
-
             &.dropdown-toggle:after {
               content: "►";
               font-size: 10px;
