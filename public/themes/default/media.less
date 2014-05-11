@@ -82,6 +82,12 @@
       border-left: 1px solid @buttonNavBorderColor;
     }
   }
+
+  main section,
+  main aside {
+    clear: both !important;
+    width: 100% !important;
+  }
 }
 
 /* Tablets */
@@ -104,6 +110,16 @@
   }
   .navbar-handle {
     display: none;
+  }
+  main aside.content-right {
+    clear: both;
+    width: 100%;
+  }
+  main aside.content-left {
+    width: (@contentAsideWidth * 1.5);
+  }
+  main section.content {
+    width: (100% - (@contentAsideWidth * 1.5));
   }
 }
 

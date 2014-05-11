@@ -16,18 +16,14 @@ article.widget {
   clear: both;
 
   header {
-    padding: 5px;
-
     h3 {
       font-size: 1.2em;
       font-weight: 700;
-      margin: 5px;
+      color: #fff;
+      margin: 0;
+      padding: 0;
     }
   }
-}
-
-article.widget + article.widget {
-  margin-top: 5px;
 }
 
 .widget-body {
@@ -35,5 +31,17 @@ article.widget + article.widget {
 
   p {
     margin: 0;
+  }
+}
+
+main {
+  article.widget {
+    margin: 5px;
+    padding: 10px;
+  }
+  .content-left, .content, .content-right {
+    article.widget {
+      background-color: @buttonSpecialBgColor;
+    }
   }
 }

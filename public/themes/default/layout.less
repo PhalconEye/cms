@@ -17,65 +17,46 @@
   margin: 0 auto;
 }
 
-.container {
+main {
   clear: both;
   width: 100%;
 }
 
-#general-content-full-top {
-  padding-top: 5px;
-}
-
-#general-content-left {
-  width: 250px;
-  min-height: @contentMinHeight;
+section, aside {
   float: left;
-  margin: 10px;
+  &.content, &.content-left, &.content-right {
+    min-height: @contentMinHeight;
+    display: inline-block;
+  }
+  &.content-left {
+    clear: left;
+  }
+  &.content-right {
+    clear: right;
+  }
 }
 
-#general-content-right {
-  width: 250px;
-  min-height: @contentMinHeight;
-  float: right;
-  margin: 10px;
+section {
+  &.content {
+    clear: none;
+    min-width: @contentSectionWidth;
+  }
+  &.content-full, &.content-top, &.content-bottom {
+    width: 100%;
+    clear: both;
+  }
+  &.content-left, &.content-right {
+    width: 100% - @contentAsideWidth;
+  }
 }
 
-#general-content-wrapper {
-  width: 100%;
-  margin: 0px auto 0 auto;
-  background: white;
-  box-shadow: 0 0 10px grey;
-  min-height: @contentMinHeight;
+aside {
+  &.content-left, &.content-right {
+    width: @contentAsideWidth;
+  }
 }
 
-#general-content-column-left {
-  float: left;
-  width: 820px;
-  min-height: @contentMinHeight;
-  margin: 10px 0 10px 10px;
-}
-
-#general-content-column-right {
-  float: right;
-  width: 820px;
-  min-height: @contentMinHeight;
-  margin: 10px 10px 10px 0;
-}
-
-
-
-#general-content-full-top, #general-content-full-bottom {
-  min-height: 10px;
-  clear: both;
-  margin: 0 10px;
-}
-
-#general-content-full-bottom {
-  margin: 10px;
-}
-
-#general-content-full {
-}
+/****************************************************/
 
 #content-left-left {
   height: 452px;
