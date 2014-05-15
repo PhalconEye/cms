@@ -210,12 +210,14 @@
   margin: 0 auto 30px;
   z-index: 0;
 }
+
 .bx-wrapper .bx-viewport {
   background: transparent;
   border: 0;
   box-shadow: none;
   left: 0;
   transform: none;
+  height: auto !important;
 }
 
 .bx-wrapper .bx-pager.bx-default-pager a:hover,
@@ -225,4 +227,30 @@
 
 .bx-wrapper img {
   display: inline;
+}
+
+.bx-wrapper .bx-controls-direction a {
+    background: none repeat scroll 0 0 #565555;
+    border: 3px solid #2B2B2B;
+    border-radius: 28px;
+    color: #2B2B2B;
+    font-size: 65px;
+    height: 50px;
+    line-height: 35px;
+    position: absolute;
+    text-align: center;
+    width: 50px;
+    text-indent: 0;
+}
+
+.bx-wrapper .bx-controls-direction a:hover {
+    color: #428BCA;
+}
+
+.bx-wrapper .bx-prev {
+    left: -20px;
+}
+
+.bx-wrapper .bx-next {
+    right: -20px;
 }
