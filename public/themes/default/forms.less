@@ -15,12 +15,12 @@
 form {
   padding: 10px;
   margin: 0 10px;
-  width: 100%;
+  max-width: 95%;
 
   fieldset {
     clear: both;
     border: none;
-    margin: 0 2%;
+    margin: 2em;
   }
 
   .form_header {
@@ -41,16 +41,9 @@ form {
   .form_elements {
 
     & > div {
-      min-height: 30px;
+      min-height: 4em;
       clear: both;
       padding-top: 10px;
-    }
-
-    .form_element, .form_label {
-      float: left;
-      line-height: 33px;
-      height: 33px;
-      width: 46%;
     }
 
     .form_label {
@@ -61,8 +54,10 @@ form {
         color: @formLabelColor;
       }
       & > p {
-        font-size: 0.9em;
+        font-size: 0.8em;
+        line-height: 0.8em;
         color: @formDescriptionColor;
+        margin: 0;
       }
     }
 
@@ -79,10 +74,10 @@ form {
 
     .validation_failed  {
       label {
-        color: red;
+        color: @fontErrorColor;
       }
       input, textarea, select, {
-        outline: 1px solid red;
+        outline: 1px solid @fontErrorColor;
       }
     }
   }
@@ -114,7 +109,7 @@ form {
     margin: 0 0 0 20px;
     padding: 10px;
     li {
-      color: #ff0000;
+      color: @fontErrorColor;
     }
   }
 
@@ -147,7 +142,7 @@ input[type=text], input[type=email], input[type=password], input.text, textarea,
   font-size: 10pt;
   resize: none;
   font-family: @font;
-  .box-shadow(inset 0 3px 8px rgba(0, 0, 0, 0.125));
+  .box-shadow(0 3px 8px rgba(0, 0, 0, 0.125) inset);
 }
 
 .btn,
@@ -159,11 +154,8 @@ button {
   background-color: @buttonBgColor;
   color: @buttonColor;
   cursor: pointer;
-  &:hover, &:focus {
+  &:hover, &:focus, &:active {
     background-color: @buttonBgHoverColor;
-  }
-  .active, &:active {
-    background-color: @buttonBgActiveColor;
   }
 }
 

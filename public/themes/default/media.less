@@ -12,15 +12,12 @@
  *
  */
 
-/* Smartphones first */
+/**
+ * Smartphones
+ */
 @media screen and (max-width: (@viewportTablet - 1)) {
 
   .phone-hidden, .tablet-visible, .desktop-visible {
-    display: none;
-  }
-
-  // Hide logo
-  .header_logo {
     display: none;
   }
 
@@ -33,6 +30,11 @@
       & > li, a {
         // Widen nav items
         width: 100%;
+      }
+
+      // Hide nav icons
+      .nav-icon {
+        display: none;
       }
 
       // Nested menu
@@ -67,6 +69,11 @@
     }
   }
 
+  // Hide logo
+  .header_logo {
+    display: none;
+  }
+
   .header_auth {
     margin: 0;
     position: absolute;
@@ -77,8 +84,9 @@
     span {
       display: none
     }
+
     a {
-      background-color: @buttonNavBgColor;
+      background-color: @buttonNavBgColor !important;
       border-left: 1px solid @buttonNavBorderColor;
     }
   }
@@ -88,9 +96,23 @@
     clear: both !important;
     width: 100% !important;
   }
+
+  // Responsive form
+  form {
+    .form_element, .form_label {
+      float: none;
+      width: 100%;
+      margin: 0.5em 0;
+    }
+    .form_label {
+      width: 100%;
+    }
+  }
 }
 
-/* Tablets */
+/**
+ * Tablets
+ */
 @media screen and (min-width: @viewportTablet) and (max-width: (@viewportDesktop - 1)) {
 
   .phone-visible, .tablet-hidden, .desktop-visible {
@@ -121,9 +143,20 @@
   main section.content {
     width: (100% - (@contentAsideWidth * 1.5));
   }
+  form {
+    .form_element, .form_label {
+      float: left;
+      width: 50%;
+    }
+    .form_label {
+      width: 46%;
+    }
+  }
 }
 
-/* Desktops and Laptops */
+/**
+ * Desktops and Laptops
+ */
 @media screen and (min-width: @viewportDesktop) {
   .phone-visible, .tablet-visible, .desktop-hidden {
     display: none;
@@ -139,5 +172,14 @@
   }
   .navbar-handle {
     display: none;
+  }
+  form {
+    .form_element, .form_label {
+      float: left;
+      width: 50%;
+    }
+    .form_label {
+      width: 46%;
+    }
   }
 }
