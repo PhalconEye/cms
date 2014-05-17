@@ -39,6 +39,13 @@ class Navigation
     }
 
     /**
+     * Navigation id
+     *
+     * @var string
+     */
+    protected $_id = 0;
+
+    /**
      * Items in navigation.
      *
      * @var array
@@ -152,6 +159,30 @@ class Navigation
     {
         $this->__DIConstruct($di);
         $this->_activeItem = substr($this->getDI()->get('request')->get('_url'), 1);
+    }
+
+    /**
+     * Set navigation id
+     *
+     * @param string $id Navigation ID
+     *
+     * @return $this
+     */
+    public function setId($id)
+    {
+        $this->_id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Get navigation id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->_id;
     }
 
     /**

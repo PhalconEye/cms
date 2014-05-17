@@ -40,7 +40,8 @@ INSERT IGNORE INTO `pages` (`id`, `title`, `type`, `url`, `description`, `keywor
 INSERT IGNORE INTO `widgets` (`id`, `module`, `name`, `description`, `is_paginated`, `is_acl_controlled`, `admin_form`, `enabled`) VALUES
 (1, 'core', 'HtmlBlock', 'Insert any HTML of you choice', 0, 1, 'action', 1),
 (2, 'core', 'Menu', 'Render menu', 0, 1, '\\Core\\Form\\Admin\\Widget\\Menu', 1),
-(3, 'core', 'Header', 'Settings for header of you site.', 0, 1, '\\Core\\Form\\Admin\\Widget\\Header', 1);
+(3, 'core', 'Header', 'Settings for header of you site.', 0, 1, '\\Core\\Form\\Admin\\Widget\\Header', 1),
+(4, 'core', 'Slider', 'Dynamic content slider', 0, 1, 'action', 1);
 
 --
 -- Dumping data for table `content`
@@ -55,8 +56,8 @@ INSERT INTO `content` (`id`, `page_id`, `widget_id`, `widget_order`, `layout`, `
   (6, 3, 1, 2, 'right', '{"title":"Right2","html_en":"<p>Right2<\\/p>\\r\\n","html_ru":"","html":null,"roles":null}'),
   (7, 3, 1, 2, 'middle', '{"title":"Content2","html_en":"<p>Content2<\\/p>\\r\\n","html_ru":"","html":null,"roles":null}'),
   (8, 3, 1, 2, 'left', '{"title":"Left2","html_en":"<p>Left2<\\/p>\\r\\n","html_ru":"","html":null,"roles":null}'),
-  (9, 1, 3, 1, 'middle', '{"logo":"assets\\/img\\/core\\/pe_logo.png","show_title":null,"show_auth":"1","roles":null,"content_id":"112"}'),
-  (10, 1, 2, 2, 'middle', '{"title":"","class":"","menu":"Default menu","menu_id":"1","roles":null}'),
+  (9, 1, 3, 2, 'middle', '{"logo":"assets\\/img\\/core\\/pe_logo_white.png","show_title":null,"show_auth":"1","roles":null,"content_id":"112"}'),
+  (10, 1, 2, 1, 'middle', '{"title":"","class":"","menu":"Default menu","menu_id":"1","roles":null}'),
   (11, 2, 1, 1, 'middle', '{"title":"","html_en":"<p style=\\"text-align: center;\\">PhalconEye v.0.4.0<\\/p>\\r\\n","roles":null}');
 
 --

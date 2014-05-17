@@ -69,6 +69,7 @@ class Controller extends WidgetController
 
         $navigation = new Navigation();
         $navigation
+            ->setId('nav'. $menuId)
             ->setListClass($menuClass)
             ->setItems($items)
             ->setActiveItem($this->dispatcher->getActionName());

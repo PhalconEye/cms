@@ -1,0 +1,39 @@
+/**
+ * PhalconEye
+ *
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file LICENSE.txt.
+ *
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to phalconeye@gmail.com so we can send you a copy immediately.
+ *
+ */
+
+.border-radius (@radius: 5px) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  border-radius: @radius;
+}
+
+.box-shadow(@arguments) {
+  -webkit-box-shadow: @arguments;
+  -moz-box-shadow: @arguments;
+  box-shadow: @arguments;
+}
+
+.box-sizing(@type: border-box) {
+  -webkit-box-sizing: @type;
+  -moz-box-sizing: @type;
+  box-sizing: @type;
+}
+
+.transition(@scope: all, @delay: 0.25s, @ease: ease) {
+  -webkit-transition: @scope @delay @ease;
+  -moz-transition: @scope @delay @ease;
+  -ms-transition: @scope @delay @ease;
+  -o-transition: @scope @delay @ease;
+  transition: @scope @delay @ease;
+}
