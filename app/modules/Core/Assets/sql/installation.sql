@@ -40,7 +40,8 @@ INSERT IGNORE INTO `pages` (`id`, `title`, `type`, `url`, `description`, `keywor
 INSERT IGNORE INTO `widgets` (`id`, `module`, `name`, `description`, `is_paginated`, `is_acl_controlled`, `admin_form`, `enabled`) VALUES
 (1, 'core', 'HtmlBlock', 'Insert any HTML of you choice', 0, 1, 'action', 1),
 (2, 'core', 'Menu', 'Render menu', 0, 1, '\\Core\\Form\\Admin\\Widget\\Menu', 1),
-(3, 'core', 'Header', 'Settings for header of you site.', 0, 1, '\\Core\\Form\\Admin\\Widget\\Header', 1);
+(3, 'core', 'Header', 'Settings for header of you site.', 0, 1, '\\Core\\Form\\Admin\\Widget\\Header', 1),
+(4, 'core', 'Slider', 'Dynamic content slider', 0, 1, 'action', 1);
 
 --
 -- Dumping data for table `content`
