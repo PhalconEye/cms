@@ -241,6 +241,7 @@
     text-align: center;
     width: 50px;
     text-indent: 0;
+    top: calc(50% - 25px);
 }
 
 .bx-wrapper .bx-controls-direction a:hover {
@@ -253,4 +254,8 @@
 
 .bx-wrapper .bx-next {
     right: -20px;
+}
+
+.bx-wrapper .bx-caption span {
+    font: inherit !important;
 }
