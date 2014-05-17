@@ -33,12 +33,16 @@ header {
 }
 
 .header_auth a {
-  background-color: @buttonSpecialBgColor;
-  color: #FFF;
+  background-color: @buttonBgColor;
+  color: @buttonColor;
   display: inline-block;
   margin-right: 1px;
   font-size: @fontSizeHeader;
   line-height: @buttonNavHeight;
   padding: 0.2*@buttonNavHeight 0.8*@buttonNavHeight;
   height: @buttonNavHeight;
+
+  &:last-child {
+    background-color: @buttonBgHoverColor;
+  }
 }

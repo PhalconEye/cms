@@ -13,163 +13,165 @@
  */
 
 form {
-  .container_block();
   padding: 10px;
   margin: 0 10px;
+  width: 100%;
+
+  fieldset {
+    clear: both;
+    border: none;
+    margin: 0 2%;
+  }
+
+  .form_header {
+    border-bottom: 1px solid @formDescriptionColor;
+
+    & > h3 {
+      margin: 0;
+      font-size: 1.2em;
+      font-weight: 700;
+    }
+
+    & > p {
+      color: @formDescriptionColor;
+      margin: 0 0 10px 0;
+    }
+  }
+
+  .form_elements {
+
+    & > div {
+      min-height: 30px;
+      clear: both;
+      padding-top: 10px;
+    }
+
+    .form_element, .form_label {
+      float: left;
+      line-height: 33px;
+      height: 33px;
+      width: 46%;
+    }
+
+    .form_label {
+      margin-right: 4%;
+      text-align: right;
+
+      & > label {
+        color: @formLabelColor;
+      }
+      & > p {
+        font-size: 0.9em;
+        color: @formDescriptionColor;
+      }
+    }
+
+    .form_element {
+
+      & > * {
+        width: 100%;
+      }
+
+      textarea {
+        min-height: 100px;
+      }
+    }
+
+    .validation_failed  {
+      label {
+        color: red;
+      }
+      input, textarea, select, {
+        outline: 1px solid red;
+      }
+    }
+  }
+
+  fieldset > div,
+  .form_elements > div {
+    min-height: 30px;
+    clear: both;
+    padding-top: 10px;
+  }
+
+  .form_footer {
+    text-align: right;
+  }
+
+  .form_element_file_image {
+    text-align: center;
+    width: 220px;
+
+    img {
+      max-width: 220px;
+      max-height: 220px;
+      margin: 0 10px 10px 10px;
+    }
+  }
+
+  .form_errors,
+  .form_notices {
+    margin: 0 0 0 20px;
+    padding: 10px;
+    li {
+      color: #ff0000;
+    }
+  }
+
+  .form_element_radio {
+    min-height: 30px;
+    width: 220px;
+
+    label, input {
+      float: left;
+    }
+
+    label {
+      margin-left: 5px;
+    }
+  }
+
+  .form_element_remote_file > input[type="text"] {
+    float: left;
+    padding-right: 15px;
+    margin-right: -10px;
+  }
 }
 
-form .form_header > h3 {
-  margin: 0;
-  font-size: 1.2em;
-  font-weight: 700;
-}
-
-form .form_header > p {
-  color: @form_description_color;
-  margin: 0 0 10px 0;
-}
-
-form .form_elements > div {
-  min-height: 30px;
-  clear: both;
-  padding-top: 10px;
-}
-
-form .form_elements .form_label {
-  width: 200px;
-  float: left;
-  margin-right: 50px;
-}
-
-form .form_elements .form_label > label {
-  margin-bottom: 0;
-  color: @label_color;
-  font-weight: bold;
-}
-
-form .form_elements .form_label > p {
-  font-size: 11px;
-  color: @form_description_color;
-}
-
-form .form_elements .form_element {
-  float: left;
-  max-width: 650px;
-}
-
-form .form_elements .form_element textarea {
-  max-width: 650px;
-  width: 400px;
-  height: 100px;
-}
-
-form fieldset {
-  clear: both;
-  border: none;
-}
-
-form .form_elements > div,
-form fieldset > div {
-  min-height: 30px;
-  clear: both;
-  padding-top: 10px;
-}
-
-form .form_footer {
-  margin: 20px 0 20px 250px;
-}
-
-form .form_footer .btn + .btn {
-  margin-left: 10px;
-}
-
-form .form_element_file_image {
-  text-align: center;
-  width: 220px;
-}
-
-form .form_element_file_image img {
-  max-width: 220px;
-  max-height: 220px;
-  margin: 0 10px 10px 10px;
-}
-
-form .form_elements .validation_failed label {
-  color: red;
-}
-
-form .form_elements .validation_failed input,
-form .form_elements .validation_failed textarea,
-form .form_elements .validation_failed select, {
-  border: 1px solid red;
-}
-
-form .form_elements select {
-  min-width: 150px;
-}
-
-.form_errors,
-.form_notices {
-  margin: 0 0 0 20px;
-  padding: 10px;
-}
-
-.form_errors li,
-.form_notices li {
-  color: #ff0000;
-}
-
-.form_element_radio {
-  min-height: 30px;
-  width: 220px;
-}
-
-.form_element_radio label,
-.form_element_radio input {
-  float: left;
-}
-
-.form_element_radio label {
-  margin-left: 5px;
-}
-
-.form_element_remote_file > input[type="text"] {
-  float: left;
-  padding-right: 15px;
-  margin-right: -10px;
-}
+/** General form elements **/
 
 input[type=text], input[type=email], input[type=password], input.text, textarea, select {
-  background-color: @container_bg_color;
-  color: @h_color;
-  border: 1px solid @container_border_color;
+  background-color: @containerBgColor;
+  border: 1px solid @containerBorderColor;
   padding: .5em;
   font-size: 10pt;
   resize: none;
-  max-width: 90%;
   font-family: @font;
-  box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.125);
-}
-
-.form_login {
-  width: 420px;
-  margin: 0 auto;
-  box-shadow: 0px 0px 2px grey;
+  .box-shadow(inset 0 3px 8px rgba(0, 0, 0, 0.125));
 }
 
 .btn,
 button {
+  height: @buttonHeight;
+  font-size: 1em;
   padding: 5px 10px;
-  border: none;
-  background-color: @button_bg_color;
-  color: @button_color;
-  text-shadow: 1px 0 0 rgba(0, 0, 0, .3);
+  border: 0;
+  background-color: @buttonBgColor;
+  color: @buttonColor;
   cursor: pointer;
-  &:hover,
-  &:focus {
-    background-color: @button_bg_hover_color;
+  &:hover, &:focus {
+    background-color: @buttonBgHoverColor;
   }
-  &:active {
-    background-color: @button_bg_active_color;
+  .active, &:active {
+    background-color: @buttonBgActiveColor;
   }
+}
+
+/** Specific forms **/
+
+.form_login {
+  margin: 0 auto;
+  max-width: 420px;
+  width: 90%;
+  .box-shadow(0px 0px 2px #808080);
 }
