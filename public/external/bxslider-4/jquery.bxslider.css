@@ -242,6 +242,7 @@
     width: 50px;
     text-indent: 0;
     top: calc(50% - 25px);
+    text-decoration: none;
 }
 
 .bx-wrapper .bx-controls-direction a:hover {

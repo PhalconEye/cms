@@ -33,21 +33,23 @@ img {
 }
 
 a {
-  color: @link_color;
+  color: @linkColor;
   font-family: @font;
-  text-decoration: none;
   &:hover,
   &:focus {
-    color: @link_hover_color;
+    color: @linkHoverColor;
   }
   &:active {
-    color: @link_active_color;
+    color: @linkActiveColor;
   }
 }
 
-h2, h3, h4 {
-  color: @fontColor;
-  font-weight: 400;
+h1 {
+  font-size: 1.8em;
+}
+
+h1, h2, h3, h4 {
+  color: @linkColor;
 }
 
 .clear {

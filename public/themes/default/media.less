@@ -140,15 +140,15 @@
   .navbar-handle {
     display: none;
   }
+  main section.content {
+    width: @contentSectionTabletWidth;
+  }
   main aside.content-right {
     clear: both;
     width: 100%;
   }
   main aside.content-left {
-    width: (@contentAsideWidth * 1.5);
-  }
-  main section.content {
-    width: (100% - (@contentAsideWidth * 1.5));
+    width: (100% - @contentSectionTabletWidth);
   }
   form {
     .form_element, .form_label {
