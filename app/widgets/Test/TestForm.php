@@ -42,7 +42,6 @@ class TestForm extends CoreForm
      */
     public function initialize()
     {
-        $baseUrl = $this->getDI()->get('config')->application->baseUrl;
         $loremShort = 'Lorem ipsum dolor sit amet';
         $loremMedium = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
                         ut labore et dolore magna aliqua.';
