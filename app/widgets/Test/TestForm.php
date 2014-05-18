@@ -60,10 +60,12 @@ class TestForm extends CoreForm
         $this->addContentFieldSet()
             ->addText('robot1', 'Robot name', null, 'Wall-E')
             ->addText('robot1', 'Robot code', $loremShort, 'CRA 25 CALLE 100')
-            ->addPassword('password', 'Password', $loremMedium, [],
-                [
-                    'placeholder' => 'Provide master password'
-                ]
+            ->addPassword(
+                'password',
+                'Password',
+                $loremMedium,
+                [],
+                ['placeholder' => 'Provide master password']
             )
             ->addTextArea('desc', 'Skills', $loremMedium, $loremLong);
 
@@ -75,7 +77,10 @@ class TestForm extends CoreForm
             ->addMultiSelect('parts', 'Parts', $loremMedium, ['Head', 'Body', 'Arms', 'Legs', 'CPU'], [0, 1, 2, 3, 4])
             ->addCheckbox('laser', 'Add laser', null, 1, true)
             ->addCheckbox('parachute', 'Add parachute', $loremShort, 1)
-            ->addRadio('cpu', 'CPU', null,
+            ->addRadio(
+                'cpu',
+                'CPU',
+                null,
                 [
                     '8008 8-bit 0.8 MHz',
                     'Sparc 16-bit 800 MHz',
@@ -83,7 +88,10 @@ class TestForm extends CoreForm
                     'Atom-XI 128-bit 0.5 THz',
                 ]
             )
-            ->addMultiCheckbox('tuning', 'Tuning', 'Select extra enhancements',
+            ->addMultiCheckbox(
+                'tuning',
+                'Tuning',
+                'Select extra enhancements',
                 [
                     '+ 128 MB L2 Operation Memory',
                     '+ 50 TB SSD-HLD Storage',
