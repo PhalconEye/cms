@@ -16,11 +16,17 @@ form {
   padding: 10px;
   margin: 0 10px;
   max-width: 95%;
+  .box-shadow(0px 0px 2px #808080);
 
   fieldset {
     clear: both;
     border: none;
-    margin: 2em;
+    margin: 1em;
+
+    legend {
+      border-bottom: 1px solid @formDescriptionColor;
+      width: 100%;
+    }
   }
 
   .form_header {
@@ -34,6 +40,7 @@ form {
 
     & > p {
       color: @formDescriptionColor;
+      font-size: @fontSizeForms;
       margin: 0 0 10px 0;
     }
   }
@@ -48,14 +55,13 @@ form {
 
     .form_label {
       margin-right: 4%;
-      text-align: right;
 
       & > label {
         color: @formLabelColor;
       }
       & > p {
-        font-size: 0.8em;
-        line-height: 0.8em;
+        font-size: @fontSizeForms;
+        line-height: 1em;
         color: @formDescriptionColor;
         margin: 0;
       }
@@ -93,14 +99,21 @@ form {
     text-align: right;
   }
 
+  .form_element_checkbox,
+  .form_element_radio {
+    position: relative;
+    label {
+      font-size: 0.8em;
+    }
+  }
+
   .form_element_file_image {
     text-align: center;
-    width: 220px;
+    overflow-x: hidden;
 
-    img {
-      max-width: 220px;
-      max-height: 220px;
-      margin: 0 10px 10px 10px;
+    img[src*="/"] {
+      width: auto;
+      max-width: 100%;
     }
   }
 
@@ -113,18 +126,6 @@ form {
     }
   }
 
-  .form_element_radio {
-    min-height: 30px;
-    width: 220px;
-
-    label, input {
-      float: left;
-    }
-
-    label {
-      margin-left: 5px;
-    }
-  }
 
   .form_element_remote_file > input[type="text"] {
     float: left;
@@ -139,7 +140,7 @@ input[type=text], input[type=email], input[type=password], input.text, textarea,
   background-color: @containerBgColor;
   border: 1px solid @containerBorderColor;
   padding: .5em;
-  font-size: 10pt;
+  font-size: @fontSizeForms;
   resize: none;
   font-family: @font;
   .box-shadow(0 3px 8px rgba(0, 0, 0, 0.125) inset);
@@ -148,7 +149,7 @@ input[type=text], input[type=email], input[type=password], input.text, textarea,
 .btn,
 button {
   height: @buttonHeight;
-  font-size: 1em;
+  font-size: 0.8em;
   padding: 5px 10px;
   border: 0;
   background-color: @buttonBgColor;
@@ -165,5 +166,4 @@ button {
   margin: 0 auto;
   max-width: 420px;
   width: 90%;
-  .box-shadow(0px 0px 2px #808080);
 }

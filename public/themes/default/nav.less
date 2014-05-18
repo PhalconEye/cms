@@ -23,10 +23,9 @@
         border-left: 1px inset @buttonNavBorderColor;
         border-right: 1px solid @buttonNavBorderColor;
         color: @buttonNavColor;
-        display: inline-block;
+        display: list-item;
         line-height: @buttonNavHeight;
         padding: 0.2*@buttonNavHeight 0.8*@buttonNavHeight;
-        margin-right: 1px;
         text-decoration: none;
         height: @buttonNavHeight;
         min-width: 3 * @buttonNavHeight;
@@ -55,9 +54,9 @@
             }
           }
           li.dropdown-submenu:hover > .dropdown-menu {
-            display: block;
-            top: 0px;
-            left: 3 * @buttonNavHeight + 44px;
+            display: list-item;
+            left: 100%;
+            top: 0;
           }
         }
       }
@@ -84,6 +83,7 @@
 
   ul {
     list-style: none;
+    white-space: nowrap;
     padding: 0px;
     margin: 0;
 
@@ -104,11 +104,11 @@
 
         // Tablet and desktop
         @media screen and (min-width: @viewportTablet) {
-          display: none;
           position: absolute;
+          display: none;
 
           a {
-            width: 3 * @buttonNavHeight;
+            // width: 3 * @buttonNavHeight;
             padding-right: 23px;
             &.dropdown-toggle:after {
               content: "►";

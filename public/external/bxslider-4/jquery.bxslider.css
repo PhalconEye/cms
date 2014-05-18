@@ -249,13 +249,17 @@
 }
 
 .bx-wrapper .bx-prev {
-    left: -20px;
+    left: -10px;
 }
 
 .bx-wrapper .bx-next {
-    right: -20px;
+    right: -10px;
 }
 
 .bx-wrapper .bx-caption span {
     font: inherit !important;
+}
+
+.bx-wrapper .bxslider > li {
+  margin-right: 1px;
 }
