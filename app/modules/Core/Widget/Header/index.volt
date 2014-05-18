@@ -21,20 +21,18 @@
     <div class="header_widget">
         <div class="header_logo">
         <a href="{{ url() }}">
-            <img alt='{{ site_title }}' src="{{ url(logo) }}"/>
-            {% if show_title is 1 %}{{ site_title }}{% endif %}
+            <img alt="{{ site_title }}" src="{{ url(logo) }}"/>
+            {% if show_title is 1 %}<h1>{{ site_title }}</h1>{% endif %}
         </a>
     </div>
 
     {% if show_auth is 1 %}
         <div class="header_auth">
         {% if not helper('user', 'user').isUser() %}
-            <a href="{{ url('login') }}">{{ 'Login' |i18n }}</a>&nbsp;
-            |
+            <a href="{{ url('login') }}">{{ 'Login' |i18n }}</a>
             <a href="{{ url('register') }}">{{ 'Register' |i18n }}</a>
         {% else %}
-            {{ 'Welcome, ' |i18n }}{{ helper('user', 'user').current().username }}&nbsp;
-            |
+            <span>{{ 'Welcome, ' |i18n }}{{ helper('user', 'user').current().username }}</span>
             {% if helper('security', 'core').isAllowed('AdminArea', 'access') %}
                 <a href="{{ url('admin') }}">{{ 'Admin panel' |i18n }}</a>
             {% endif %}
@@ -42,6 +40,5 @@
         {% endif %}
         </div>
     {% endif %}
-    <div class="clear"></div>
     </div>
 {%- endblock -%}

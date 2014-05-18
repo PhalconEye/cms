@@ -1,4 +1,5 @@
-{#
+<?php
+/*
   +------------------------------------------------------------------------+
   | PhalconEye CMS                                                         |
   +------------------------------------------------------------------------+
@@ -11,18 +12,28 @@
   | obtain it through the world-wide-web, please send an email             |
   | to license@phalconeye.com so we can send you a copy immediately.       |
   +------------------------------------------------------------------------+
-  | Author: Ivan Vorontsov <ivan.vorontsov@phalconeye.com>                 |
-  +------------------------------------------------------------------------+
-#}
+*/
 
-{% extends "../../Core/View/layouts/widget.volt" %}
+namespace Widget\Test;
 
-{% block content %}
-    <div class="navbar">
-        <input type="checkbox" class="navbar-toggle"  id="{{ navigation.getId() ~ '-toggle' }}" />
-        <div class="navbar-inner">
-            {{ navigation.render() }}
-        </div>
-        <label class="navbar-handle" for="{{ navigation.getId() ~ '-toggle' }}" />
-    </div>
-{% endblock %}
+use Engine\Widget\Controller as WidgetController;
+
+/**
+ * Widget Test.
+ *
+ * @category PhalconEye\Widget
+ * @package  Widget
+ */
+class Controller extends WidgetController
+{
+
+    /**
+     * Index action.
+     *
+     * @return void
+     */
+    public function indexAction()
+    {
+        $this->view->form = new TestForm();
+    }
+}
