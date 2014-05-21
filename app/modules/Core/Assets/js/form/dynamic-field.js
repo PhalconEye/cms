@@ -36,7 +36,7 @@
             _const: {
                 addButton: 'glyphicon-plus-sign',
                 delButton: 'glyphicon-minus-sign',
-                controls: 'form_dynamic_controls'
+                controls: 'dynamic-controls'
             },
 
             /**
@@ -59,8 +59,9 @@
                 // Create Add button if possible
                 if (this._canAdd(scope)) {
                     if (controls.find('.' + this._const.addButton).length == 0) {
-                        $('<span></span>')
-                            .addClass(this._const.addButton)
+                        $('<i></i>')
+                            .addClass('glyphicon ' + this._const.addButton)
+                            .text(' Add')
                             .appendTo(controls)
                             .on('click', function() {
                                 $this.addElementTo(scope);
@@ -73,8 +74,9 @@
                 // Create Remove button if possible
                 if (this._canRemove(scope)) {
                     if (controls.find('.' + this._const.delButton).length == 0) {
-                        $('<span></span>')
-                            .addClass(this._const.delButton)
+                        $('<i></i>')
+                            .addClass('glyphicon ' + this._const.delButton)
+                            .text(' Remove')
                             .appendTo(controls)
                             .on('click', function() {
                                 $this.removeElementFrom(scope);

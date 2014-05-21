@@ -474,6 +474,21 @@ form .form_element_file_image img {
   margin: 0 10px 10px 10px;
 }
 
+form div[data-dynamic-field] {
+  & > * {
+    margin: 5px 0;
+  }
+
+  .dynamic-controls {
+    float: right;
+
+    i {
+      cursor: pointer;
+      margin: 0 15px;
+    }
+  }
+}
+
 form .form_footer {
   float: left;
   clear: both;
