@@ -85,8 +85,8 @@
                     $this._setupEvents(item, condition);
                 });
 
-                $('*[data-dynamic-field]', context).each(function (index, item) {
-                    root.ns('PhalconEye.form.dynamicField').init(item);
+                $('*[data-dynamic]', context).each(function (index, item) {
+                    root.form.dynamicField.init(item);
                 });
             },
 

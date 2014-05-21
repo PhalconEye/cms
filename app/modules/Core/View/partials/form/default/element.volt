@@ -40,12 +40,30 @@
             </div>
         {% endif %}
         <div class="form_element">
-            {% if instanceof(element, 'Engine\Form\Element\File') and element.getOption('isImage') and element.getValue() is not '/' %}
-                <div class="form_element_file_image">
-                    <img alt="" src="{{ element.getValue() }}"/>
+            {% if element.getOption('dynamic') %}
+
+                <div data-dynamic="{{ element.getName() }}" data-dynamic-min="{{ element.getOption('dynamic')['min'] }}" data-dynamic-max="{{ element.getOption('dynamic')['max'] }}">
+
+                    {% for value in element.getValue() %}
+
+                        {% if instanceof(element, 'Engine\Form\Element\File') and element.getOption('isImage') and element.getValue() != '/' %}
+                        <div class="form_element_file_image">
+                            <img alt="" src="{{ element.getValue() }}"/>
+                        </div>
+                        {% endif %}
+                        {{ element.setValue(value).render() }}
+
+                    {% endfor %}
                 </div>
+
+            {% else %}
+                {% if instanceof(element, 'Engine\Form\Element\File') and element.getOption('isImage') and element.getValue() != '/' %}
+                    <div class="form_element_file_image">
+                        <img alt="" src="{{ element.getValue() }}"/>
+                    </div>
+                {% endif %}
+                {{ element.render() }}
             {% endif %}
-            {{ element.render() }}
         </div>
 
         {% if combined is not defined or not combined %}

@@ -31,12 +31,14 @@
         'PhalconEye.form.dynamicField',
         {
             /**
-             * Constants.
+             * Elements
              */
-            _const: {
-                addButton: 'glyphicon-plus-sign',
-                delButton: 'glyphicon-minus-sign',
-                controls: 'dynamic-controls'
+            _elements: {
+                controls: $('<div></div>').addClass('dynamic-controls'),
+                addControl: $('<a></a>').addClass('dynamic-add btn btn-primary'),
+                delControl: $('<a></a>').addClass('dynamic-del btn btn-danger'),
+                addButton: $('<i></i>').addClass('glyphicon glyphicon-plus-sign'),
+                delButton: $('<i></i>').addClass('glyphicon glyphicon-minus-sign')
             },
 
             /**
@@ -49,41 +51,45 @@
                 scope = $(scope);
 
                 var $this = this,
-                    controls = scope.find('.' + this._const.controls);
+                    controls = scope.find('.dynamic-controls');
 
                 // Init controls area
                 if (controls.length == 0) {
-                    controls = $('<div></div>').addClass(this._const.controls).appendTo(scope);
+                    controls = this._elements.controls.clone().appendTo(scope);
                 }
 
                 // Create Add button if possible
                 if (this._canAdd(scope)) {
-                    if (controls.find('.' + this._const.addButton).length == 0) {
-                        $('<i></i>')
-                            .addClass('glyphicon ' + this._const.addButton)
-                            .text(' Add')
-                            .appendTo(controls)
+                    if (controls.find('.dynamic-add').length == 0) {
+
+                        $this._elements.addControl
+                            .clone()
+                            .append($this._elements.addButton.clone())
+                            .append(root.i18n._('Add'))
+                            .prependTo(controls)
                             .on('click', function() {
                                 $this.addElementTo(scope);
                             });
                     }
                 } else {
-                    controls.find('.' + this._const.addButton).remove();
+                    controls.find('.dynamic-add').remove();
                 }
 
                 // Create Remove button if possible
                 if (this._canRemove(scope)) {
-                    if (controls.find('.' + this._const.delButton).length == 0) {
-                        $('<i></i>')
-                            .addClass('glyphicon ' + this._const.delButton)
-                            .text(' Remove')
+                    if (controls.find('.dynamic-del').length == 0) {
+
+                        $this._elements.delControl
+                            .clone()
+                            .append($this._elements.delButton.clone())
+                            .append(root.i18n._('Delete'))
                             .appendTo(controls)
                             .on('click', function() {
                                 $this.removeElementFrom(scope);
                             });
                     }
                 } else {
-                    controls.find('.' + this._const.delButton).remove();
+                    controls.find('.dynamic-del').remove();
                 }
             },
 
@@ -98,14 +104,14 @@
                     return;
                 }
 
-                var name = scope.data('dynamic-field'),
-                    element = $('[name="'+ name +'\\[\\]"]', scope).first();
+                var name = scope.data('dynamic'),
+                    element = $('[name="'+ name +'"]', scope).first();
 
                 // Clone first available element and append at the end
                 element
                     .clone()
                     .val('')
-                    .insertBefore(scope.find('.' + this._const.controls));
+                    .insertBefore(scope.find('.dynamic-controls'));
 
                 this.init(scope)
             },
@@ -121,8 +127,8 @@
                     return;
                 }
 
-                var name = scope.data('dynamic-field'),
-                    element = $('[name="'+ name +'\\[\\]"]', scope).last();
+                var name = scope.data('dynamic'),
+                    element = $('[name="'+ name +'"]', scope).last();
 
                 // Remove the last element
                 element.remove();
@@ -139,7 +145,7 @@
              * @returns bool
              */
             _getCurrentCount: function(scope) {
-                return $('[name="'+ scope.data('dynamic-field') +'\\[\\]"]', scope).length;
+                return $('[name="'+ scope.data('dynamic') +'"]', scope).length;
             },
 
             /**
