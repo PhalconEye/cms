@@ -44,11 +44,24 @@
 
                 <div data-dynamic="{{ element.getName() }}" data-dynamic-min="{{ element.getOption('dynamic')['min'] }}" data-dynamic-max="{{ element.getOption('dynamic')['max'] }}">
 
-                    {% for value in element.getValue() %}
 
-                        {% if instanceof(element, 'Engine\Form\Element\File') and element.getOption('isImage') and element.getValue() != '/' %}
+                    {% if element.getValue() is type('array') %}
+                        {% set values = element.getValue() %}
+                    {% else %}
+                        {% set values = [] %}
+                    {% endif %}
+
+                    <?php if (count($values) < $element->getOption('dynamic')['min']): ?>
+                        <?php $values = array_merge($values, array_fill(0, $element->getOption('dynamic')['min'] - count($values), '')); ?>
+                    <?php elseif (count($values) > $element->getOption('dynamic')['max']): ?>
+                        <?php $values = array_slice(0, $element->getOption('dynamic')['max']) ?>
+                    <?php endif; ?>
+
+                    {% for value in values %}
+
+                        {% if instanceof(element, 'Engine\Form\Element\File') and element.getOption('isImage') and value != '/' %}
                         <div class="form_element_file_image">
-                            <img alt="" src="{{ element.getValue() }}"/>
+                            <img alt="" src="{{ value }}"/>
                         </div>
                         {% endif %}
                         {{ element.setValue(value).render() }}

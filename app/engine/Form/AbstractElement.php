@@ -158,16 +158,6 @@ abstract class AbstractElement implements ElementInterface
      */
     public function getValue()
     {
-        // todo: move this away
-        if (isset($this->_options['dynamic'])) {
-            settype($this->_value, 'array');
-            if (count($this->_value) < $this->_options['dynamic']['min']) {
-                $this->_value = array_merge($this->_value, array_fill(0, $this->_options['dynamic']['min'] - count($this->_value), ''));
-            } elseif (count($this->_value) > $this->_options['dynamic']['max']) {
-                $this->_value = array_slice($this->_value, 0, $this->_options['dynamic']['max']);
-            }
-        }
-
         return $this->_value;
     }
 
