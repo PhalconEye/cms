@@ -153,6 +153,13 @@ interface ElementInterface
     public function getHtmlTemplate();
 
     /**
+     * Get element html template values
+     *
+     * @return array
+     */
+    public function getHtmlTemplateValues();
+
+    /**
      * Get allowed options for this element.
      *
      * @return array

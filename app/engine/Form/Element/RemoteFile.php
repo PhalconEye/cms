@@ -74,25 +74,24 @@ class RemoteFile extends AbstractElement implements ElementInterface
     }
 
     /**
-     * Render element.
+     * Get element html template values
      *
-     * @return string
+     * @return array
      */
-    public function render()
+    public function getHtmlTemplateValues()
     {
         $buttonTitle = $this->getOption('buttonTitle');
         if (!$buttonTitle) {
             $buttonTitle = $this->_('Select file');
         }
 
-        return sprintf(
-            $this->getHtmlTemplate(),
+        return [
             $this->getName(),
             $this->getName(),
             $this->getValue(),
             $this->getDI()->getUrl()->get(self::EDITOR_URL),
             $buttonTitle,
             $buttonTitle
-        );
+        ];
     }
 }

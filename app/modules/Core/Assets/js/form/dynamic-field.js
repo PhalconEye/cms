@@ -65,7 +65,7 @@
                         $this._elements.addControl
                             .clone()
                             .append($this._elements.addButton.clone())
-                            .append(root.i18n._('Add'))
+                            .append((root.i18n && root.i18n._('Add')) || 'Add')
                             .prependTo(controls)
                             .on('click', function() {
                                 $this.addElementTo(scope);
@@ -82,7 +82,7 @@
                         $this._elements.delControl
                             .clone()
                             .append($this._elements.delButton.clone())
-                            .append(root.i18n._('Delete'))
+                            .append((root.i18n && root.i18n._('Delete')) || 'Delete')
                             .appendTo(controls)
                             .on('click', function() {
                                 $this.removeElementFrom(scope);
@@ -107,12 +107,14 @@
                 var name = scope.data('dynamic'),
                     element = $('[name="'+ name +'"]', scope).first();
 
-                // Clone first available element and append at the end
-                element
-                    .clone()
-                    .val('')
-                    .insertBefore(scope.find('.dynamic-controls'));
+                if (element.parent().hasClass('form_element_remote_file')) {
+                    element = element.parent().clone();
+                    element.find('[name="'+ name +'"]').val('');
+                } else {
+                    element = element.clone().val('');
+                }
 
+                element.insertBefore(scope.find('.dynamic-controls'));
                 this.init(scope)
             },
 
@@ -131,7 +133,11 @@
                     element = $('[name="'+ name +'"]', scope).last();
 
                 // Remove the last element
-                element.remove();
+                if (element.parent().hasClass('form_element_remote_file')) {
+                    element.parent().remove();
+                } else {
+                    element.remove();
+                }
 
                 this.init(scope);
             },

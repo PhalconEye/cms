@@ -132,6 +132,20 @@ abstract class AbstractElement implements ElementInterface
     }
 
     /**
+     * Is the element dynamic?
+     *
+     * @return bool
+     */
+    public function isDynamic()
+    {
+        return isset(
+            $this->_options['dynamic'],
+            $this->_options['dynamic']['min'],
+            $this->_options['dynamic']['max']
+        );
+    }
+
+    /**
      * Sets the element option.
      *
      * @param string $value  Element value.
@@ -319,6 +333,77 @@ abstract class AbstractElement implements ElementInterface
             $default['required'] = 'required';
         }
         return $default;
+    }
+
+    /**
+     * Get element html template values
+     *
+     * @return array
+     */
+    public function getHtmlTemplateValues()
+    {
+        return [$this->getValue()];
+    }
+
+    /**
+     * Render element.
+     *
+     * @return string
+     */
+    public function render()
+    {
+        if ($this->isDynamic()) {
+            return $this->_renderDynamicElement();
+        }
+
+        return vsprintf(
+            $this->getHtmlTemplate(),
+            $this->getHtmlTemplateValues()
+        );
+    }
+
+    /**
+     * Render dynamic element.
+     *
+     * @return string
+     */
+    protected function _renderDynamicElement()
+    {
+        $originalValue = $this->getValue();
+        $minElements = $this->getOption('dynamic')['min'];
+        $maxElements = $this->getOption('dynamic')['max'];
+        $values = (array) $originalValue;
+
+        if ($minElements > $maxElements) {
+            throw new \LogicException('Minimum number of element exceeds minimum');
+        }
+
+        if (count($values) < $minElements) {
+            // Too few values
+            $values = array_merge($values, array_fill(0, $minElements - count($values), ''));
+        } elseif (count($values) > $maxElements) {
+            // Too many values
+            $values = array_slice($values, 0, $maxElements);
+        }
+
+        $html = '<div data-dynamic="'. $this->getName() .'"'.
+            '     data-dynamic-min="'. $this->getOption('dynamic')['min'] .'"'.
+            '     data-dynamic-max="'. $this->getOption('dynamic')['max'] .'">';
+
+        foreach ($values as $value) {
+            $this->setValue($value);
+            $html .= vsprintf(
+                $this->getHtmlTemplate(),
+                $this->getHtmlTemplateValues()
+            );
+        }
+
+        $html .= '</div>';
+
+        // Restore original value
+        $this->setValue($originalValue);
+
+        return $html;
     }
 
     /**

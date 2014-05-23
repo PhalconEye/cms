@@ -87,6 +87,16 @@ class ButtonLink extends AbstractElement implements ElementInterface
     }
 
     /**
+     * Get element html template values
+     *
+     * @return array
+     */
+    public function getHtmlTemplateValues()
+    {
+        return [$this->_($this->getOption('label'))];
+    }
+
+    /**
      * Render element.
      *
      * @return string
@@ -101,9 +111,6 @@ class ButtonLink extends AbstractElement implements ElementInterface
         }
         $this->setAttribute('href', $href);
 
-        return sprintf(
-            $this->getHtmlTemplate(),
-            $this->_($this->getOption('label'))
-        );
+        parent::render();
     }
 }

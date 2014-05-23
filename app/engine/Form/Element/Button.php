@@ -100,6 +100,16 @@ class Button extends AbstractElement implements ElementInterface
     }
 
     /**
+     * Get element html template values
+     *
+     * @return array
+     */
+    public function getHtmlTemplateValues()
+    {
+        return [$this->_($this->getOption('label'))];
+    }
+
+    /**
      * Render element.
      *
      * @return string
@@ -109,9 +119,7 @@ class Button extends AbstractElement implements ElementInterface
         if (!$this->getAttribute('value') && $this->getValue()) {
             $this->setAttribute('value', $this->getValue());
         }
-        return sprintf(
-            $this->getHtmlTemplate(),
-            $this->_($this->getOption('label'))
-        );
+
+        parent::render();
     }
 }

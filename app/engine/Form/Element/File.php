@@ -61,8 +61,34 @@ class File extends AbstractInput implements ElementInterface
     {
         $value = parent::getValue();
         if ($this->getOption('isImage') && !empty($value)) {
-            return $this->getDI()->getUrl()->get($value);
+            if ($this->isDynamic() && is_array($value)) {
+                $values = [];
+                foreach ($value as $one) {
+                    $values[] = $this->getDI()->getUrl()->get($one);
+                }
+                return $values;
+            } else {
+                return $this->getDI()->getUrl()->get($value);
+            }
         }
         return $value;
+    }
+
+    /**
+     * Get element html template.
+     *
+     * @return string
+     */
+    public function getHtmlTemplate()
+    {
+        if ($this->getOption('isImage') && $this->getValue() != '/')
+        {
+            return '<div class="form_element_file_image">
+                         <img alt="Preview image" src="'. $this->getValue() .'"/>
+                     </div>'.
+                   parent::getHtmlTemplate();
+        } else {
+            return parent::getHtmlTemplate();
+        }
     }
 }

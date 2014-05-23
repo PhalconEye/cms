@@ -87,22 +87,19 @@ class Checkbox extends AbstractElement implements ElementInterface
             'htmlTemplate',
             '
             <div class="form_element_radio">
-            <input' . $this->_renderAttributes() . '%s/>
+              <input' . $this->_renderAttributes() . '%s/>
             </div>
             '
         );
     }
 
     /**
-     * Render element.
+     * Get element html template values
      *
-     * @return string
+     * @return array
      */
-    public function render()
+    public function getHtmlTemplateValues()
     {
-        return sprintf(
-            $this->getHtmlTemplate(),
-            ($this->getOption('checked') ? ' checked="checked"' : '')
-        );
+        return [$this->getOption('checked') ? ' checked="checked"' : ''];
     }
 }

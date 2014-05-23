@@ -97,17 +97,16 @@ class Heading extends AbstractElement implements ElementInterface
     }
 
     /**
-     * Render this element.
+     * Get element html template values
      *
-     * @return string
+     * @return array
      */
-    public function render()
+    public function getHtmlTemplateValues()
     {
-        return sprintf(
-            $this->getHtmlTemplate(),
+        return [
             $this->getOption('tag'),
             $this->_($this->getValue()),
             $this->getOption('tag')
-        );
+        ];
     }
 }

@@ -59,17 +59,4 @@ abstract class AbstractInput extends AbstractElement implements ElementInterface
     {
         return $this->getOption('htmlTemplate', '<input' . $this->_renderAttributes() . ' value="%s">');
     }
-
-    /**
-     * Render element.
-     *
-     * @return string
-     */
-    public function render()
-    {
-        return sprintf(
-            $this->getHtmlTemplate(),
-            $this->getValue()
-        );
-    }
 }
