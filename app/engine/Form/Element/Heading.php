@@ -45,7 +45,7 @@ class Heading extends AbstractElement implements ElementInterface
      */
     public function getAllowedOptions()
     {
-        return ['htmlTemplate', 'tag', 'content'];
+        return ['htmlTemplate', 'tag'];
     }
 
     /**
