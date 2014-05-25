@@ -127,7 +127,7 @@ class Select extends AbstractElement implements ElementInterface
         if (!is_array($value)) {
             $value = [$value];
         }
-        if($this->isDynamic()) {
+        if ($this->isDynamic()) {
             $value = [];
             foreach (new \RecursiveIteratorIterator(new \RecursiveArrayIterator((array) $originalValue)) as $oneValue) {
                 $value[] = $oneValue;

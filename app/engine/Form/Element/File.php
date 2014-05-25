@@ -83,8 +83,7 @@ class File extends AbstractInput implements ElementInterface
      */
     public function getHtmlTemplate()
     {
-        if ($this->getOption('isImage') && $this->getValue() != '/')
-        {
+        if ($this->getOption('isImage') && $this->getValue() != '/') {
             return '<div class="form_element_file_image">
                          <img alt="Preview image" src="'. $this->getValue() .'"/>
                      </div>'.
