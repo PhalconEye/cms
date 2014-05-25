@@ -13,6 +13,7 @@
   | to license@phalconeye.com so we can send you a copy immediately.       |
   +------------------------------------------------------------------------+
   | Author: Ivan Vorontsov <ivan.vorontsov@phalconeye.com>                 |
+  | Author: Piotr Gasiorowski <p.gasiorowski@vipserv.org>                  |
   +------------------------------------------------------------------------+
 */
 
@@ -32,6 +33,7 @@ use Phalcon\Mvc\View;
  * @category  PhalconEye
  * @package   Core\Controller
  * @author    Ivan Vorontsov <ivan.vorontsov@phalconeye.com>
+ * @author    Piotr Gasiorowski <p.gasiorowski@vipserv.org>
  * @copyright 2013-2014 PhalconEye Team
  * @license   New BSD License
  * @link      http://phalconeye.com/
@@ -216,6 +218,7 @@ abstract class AbstractController extends PhalconController
                 ->addJs('assets/js/core/i18n.js')
                 ->addJs('assets/js/core/form.js')
                 ->addJs('assets/js/core/form/remote-file.js')
+                ->addJs('assets/js/core/form/dynamic-field.js')
                 ->addJs('assets/js/core/widgets/grid.js')
                 ->addJs('assets/js/core/widgets/autocomplete.js')
                 ->addJs('assets/js/core/widgets/modal.js')
