@@ -43,8 +43,16 @@
                 } else if (typeof data != 'object') {
                     data = {};
                 }
+                CKEDITOR.replace(element.attr('id'), data);
+            },
 
-                CKEDITOR.replace(element.data('name'), data);
+            /**
+             * Destroy ckeditor instance.
+             *
+             * @param element Ckeditor element.
+             */
+            destroy: function(element) {
+                CKEDITOR.instances[element.attr('id')].destroy();
             }
         }
     );

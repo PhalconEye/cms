@@ -35,8 +35,8 @@
              */
             _elements: {
                 controls: $('<div></div>').addClass('dynamic-controls'),
-                addControl: $('<a></a>').addClass('dynamic-add btn btn-primary'),
-                delControl: $('<a></a>').addClass('dynamic-del btn btn-danger'),
+                addControl: $('<button></button>').attr('type', 'button').addClass('dynamic-add btn btn-primary'),
+                delControl: $('<button></button>').attr('type', 'button').addClass('dynamic-del btn btn-danger'),
                 addButton: $('<i></i>').addClass('glyphicon glyphicon-plus-sign'),
                 delButton: $('<i></i>').addClass('glyphicon glyphicon-minus-sign')
             },
@@ -94,52 +94,95 @@
             },
 
             /**
+             * Clone element
+             *
+             * @param element Element object
+             *
+             * @return Cloned element object
+             */
+            cloneElement: function(element) {
+
+                var clone = null,
+                    realElement = null;
+
+                // Clone last element
+                if (element.parent().hasClass('form_element_remote_file')) {
+                    clone = element.parent().clone(true, true);
+                    realElement = $(clone.children().get(0));
+                } else {
+
+                    clone = realElement = element.clone();
+                }
+
+                // Reset value and increase id
+                realElement
+                    .val('')
+                    .attr('id', element.attr('id').replace(/(\d+)/, function() {
+                        return parseInt(arguments[1]) + 1;
+                    }));
+
+                // Needed for re-initializing CKEditor
+                if (clone.data('widget') == '(ckeditor):invoked') {
+                    clone.data('widget', 'ckeditor');
+                }
+
+                return clone;
+            },
+
+            /**
              * Adds new element into the scope
              *
              * @param scope Element object.
+             * @return bool
              */
             addElementTo: function (scope) {
 
-                if (this._canAdd(scope) == false) {
-                    return;
+                if (this._canAdd(scope)) {
+
+                    var name = scope.data('dynamic'),
+                        element = $('[name="'+ name +'"]', scope).last(),
+                        clone = this.cloneElement(element);
+
+                    clone.insertBefore(scope.find('.dynamic-controls'));
+
+                    // Initialize CKEditor
+                    if (clone.data('widget') == 'ckeditor') {
+                        root.widget.ckeditor.init(clone);
+                    }
+
+                    this.init(scope);
                 }
-
-                var name = scope.data('dynamic'),
-                    element = $('[name="'+ name +'"]', scope).first();
-
-                if (element.parent().hasClass('form_element_remote_file')) {
-                    element = element.parent().clone();
-                    element.find('[name="'+ name +'"]').val('');
-                } else {
-                    element = element.clone().val('');
-                }
-
-                element.insertBefore(scope.find('.dynamic-controls'));
-                this.init(scope)
+                return false;
             },
 
             /**
              * Removes last element from the scope
              *
              * @param scope Element object.
+             * @return bool
              */
             removeElementFrom: function (scope) {
 
-                if (this._canRemove(scope) == false) {
-                    return;
+                if (this._canRemove(scope)) {
+
+                    var name = scope.data('dynamic'),
+                        element = $('[name="'+ name +'"]', scope).last();
+
+                    // Remove the last element
+                    if (element.parent().hasClass('form_element_remote_file')) {
+                        element.parent().remove();
+                    } else {
+
+                        if (element.data('widget') == 'ckeditor') {
+                            root.widget.ckeditor.destroy(element);
+                        }
+
+                        element.remove();
+                    }
+
+                    this.init(scope);
                 }
-
-                var name = scope.data('dynamic'),
-                    element = $('[name="'+ name +'"]', scope).last();
-
-                // Remove the last element
-                if (element.parent().hasClass('form_element_remote_file')) {
-                    element.parent().remove();
-                } else {
-                    element.remove();
-                }
-
-                this.init(scope);
+                return false;
             },
 
             /**

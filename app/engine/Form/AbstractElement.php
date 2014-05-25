@@ -13,6 +13,7 @@
   | to license@phalconeye.com so we can send you a copy immediately.       |
   +------------------------------------------------------------------------+
   | Author: Ivan Vorontsov <ivan.vorontsov@phalconeye.com>                 |
+  | Author: Piotr Gasiorowski <p.gasiorowski@vipserv.org>                  |
   +------------------------------------------------------------------------+
 */
 
@@ -28,6 +29,7 @@ use Phalcon\Forms\Element as PhalconElement;
  * @category  PhalconEye
  * @package   Engine\Form
  * @author    Ivan Vorontsov <ivan.vorontsov@phalconeye.com>
+ * @author    Piotr Gasiorowski <p.gasiorowski@vipserv.org>
  * @copyright 2013-2014 PhalconEye Team
  * @license   New BSD License
  * @link      http://phalconeye.com/
@@ -328,7 +330,12 @@ abstract class AbstractElement implements ElementInterface
      */
     public function getDefaultAttributes()
     {
-        $default = ['id' => $this->getName(), 'name' => $this->getName(), 'class' => 'form-control'];
+        $default = [
+            'id' => rtrim($this->getName(), '[]'),
+            'name' => $this->getName(),
+            'class' => 'form-control'
+        ];
+
         if ($this->getOption('required')) {
             $default['required'] = 'required';
         }
@@ -369,9 +376,10 @@ abstract class AbstractElement implements ElementInterface
      */
     protected function _renderDynamicElement()
     {
+        $originalId    = $this->getAttribute('id');
         $originalValue = $this->getValue();
-        $minElements = $this->getOption('dynamic')['min'];
-        $maxElements = $this->getOption('dynamic')['max'];
+        $minElements = (int) $this->getOption('dynamic')['min'];
+        $maxElements = (int) $this->getOption('dynamic')['max'];
         $values = (array) $originalValue;
 
         if ($minElements > $maxElements) {
@@ -386,22 +394,19 @@ abstract class AbstractElement implements ElementInterface
             $values = array_slice($values, 0, $maxElements);
         }
 
-        $html = '<div data-dynamic="'. $this->getName() .'"'.
-            '     data-dynamic-min="'. $this->getOption('dynamic')['min'] .'"'.
-            '     data-dynamic-max="'. $this->getOption('dynamic')['max'] .'">';
-
-        foreach ($values as $value) {
+        $html = '';
+        foreach ($values as $id => $value) {
             $this->setValue($value);
+            $this->setAttribute('id', $originalId.$id);
             $html .= vsprintf(
                 $this->getHtmlTemplate(),
                 $this->getHtmlTemplateValues()
             );
         }
 
-        $html .= '</div>';
-
-        // Restore original value
+        // Restore original value and id
         $this->setValue($originalValue);
+        $this->setAttribute('id', $originalId);
 
         return $html;
     }
