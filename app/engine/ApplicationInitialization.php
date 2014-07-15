@@ -247,9 +247,9 @@ trait ApplicationInitialization
             
             // Use $_SERVER['REQUEST_URI'] (NGINX)
             if (!isset($_GET['_url'])) {
-               $router->setUriSource(Router::URI_SOURCE_SERVER_REQUEST_URI);
-               // Remove extra slashes from url
-               $router->removeExtraSlashes(true);
+                $router->setUriSource(Router::URI_SOURCE_SERVER_REQUEST_URI);
+                // Remove extra slashes from url
+                $router->removeExtraSlashes(true);
             }
             
             $router->setDefaultModule(Application::SYSTEM_DEFAULT_MODULE);
@@ -277,9 +277,9 @@ trait ApplicationInitialization
             
             // Use $_SERVER['REQUEST_URI'] (NGINX)
             if (!isset($_GET['_url'])) {
-               $router->setUriSource(Router::URI_SOURCE_SERVER_REQUEST_URI);
-               // Remove extra slashes from url
-               $router->removeExtraSlashes(true);
+                $router->setUriSource(Router::URI_SOURCE_SERVER_REQUEST_URI);
+                // Remove extra slashes from url
+                $router->removeExtraSlashes(true);
             }
 
             $router->setDefaultModule(Application::SYSTEM_DEFAULT_MODULE);
