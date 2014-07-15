@@ -244,14 +244,14 @@ trait ApplicationInitialization
         // Check installation.
         if (!$config->installed) {
             $router = new RouterAnnotations(false);
-            
+
             // Use $_SERVER['REQUEST_URI'] (NGINX)
             if (!isset($_GET['_url'])) {
                 $router->setUriSource(Router::URI_SOURCE_SERVER_REQUEST_URI);
                 // Remove extra slashes from url
                 $router->removeExtraSlashes(true);
             }
-            
+
             $router->setDefaultModule(Application::SYSTEM_DEFAULT_MODULE);
             $router->setDefaultNamespace($defaultModuleName . '\Controller');
             $router->setDefaultController("Install");
@@ -274,7 +274,7 @@ trait ApplicationInitialization
 
             // Use the annotations router.
             $router = new RouterAnnotations(true);
-            
+
             // Use $_SERVER['REQUEST_URI'] (NGINX)
             if (!isset($_GET['_url'])) {
                 $router->setUriSource(Router::URI_SOURCE_SERVER_REQUEST_URI);
