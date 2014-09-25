@@ -6,6 +6,7 @@
     "license" : "BSD-3-Clause",
     "require" : {
         "php" : ">=5.4.20",
+	"phalconeye/framework": "0.5.*@dev",
         "phalconeye/composer-installer-plugin": "0.5.*@dev",
         "phalconeye/module-blog": "1.0.0.*@dev",
         "leafo/lessphp": "0.4.0"
