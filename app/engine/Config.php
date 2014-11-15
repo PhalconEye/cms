@@ -177,16 +177,16 @@ class Config extends PhalconConfig
 
         foreach ($configFiles as $file) {
             $data = include_once($file);
-            $config->offsetSet(basename($file, ".php"), $data);
+            $config->offsetSet(basename($file, ".php"), new PhalconConfig($data));
         }
 
         $appPath = ROOT_PATH . self::CONFIG_METADATA_APP;
 
         if (!file_exists($appPath)) {
             $config->offsetSet('installed', false);
-            $config->offsetSet('events', array());
-            $config->offsetSet('modules', array());
-            $config->offsetSet('widgets', array());
+            $config->offsetSet('events', new PhalconConfig);
+            $config->offsetSet('modules', new PhalconConfig);
+            $config->offsetSet('widgets', new PhalconConfig);
             return $config;
         }
 
