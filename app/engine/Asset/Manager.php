@@ -293,9 +293,11 @@ class Manager extends AssetManager
     /**
      * Get <head> tag inline code.
      *
+     * @param Collection $collection
+     * @param string     $type
      * @return string
      */
-    public function outputInline()
+    public function outputInline(Collection $collection, $type)
     {
         return implode('\n', $this->_inline);
     }
