@@ -299,7 +299,10 @@ class Manager extends AssetManager
      */
     public function outputInline(Collection $collection, $type)
     {
-        return implode('\n', $this->_inline);
+        $html = parent::outputInline($collection, $type);
+        $html .= implode('\n', $this->_inline);
+
+        return $html;
     }
 
     /**
