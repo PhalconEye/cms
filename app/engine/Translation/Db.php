@@ -37,7 +37,7 @@ use Phalcon\Translate\Exception;
  * @license   New BSD License
  * @link      http://phalconeye.com/
  */
-class Db implements AdapterInterface
+class Db extends Adapter implements AdapterInterface
 {
     use DIBehaviour {
         DIBehaviour::__construct as protected __DIConstruct;
@@ -71,19 +71,6 @@ class Db implements AdapterInterface
         $this->__DIConstruct($di);
         $this->_languageId = $languageId;
         $this->_translationModel = $model;
-    }
-
-    /**
-     * Returns the translation string of the given key.
-     *
-     * @param string $translateKey Key.
-     * @param array  $placeholders Placeholders.
-     *
-     * @return string
-     */
-    public function _($translateKey, $placeholders = null)
-    {
-        return $this->query($translateKey, $placeholders);
     }
 
     /**
