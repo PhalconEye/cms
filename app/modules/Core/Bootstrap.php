@@ -28,6 +28,7 @@ use Engine\Config;
 use Engine\Translation\Db as TranslationDb;
 use Phalcon\DI;
 use Phalcon\DiInterface;
+use Phalcon\Config as PhalconConfig;
 use Phalcon\Events\Manager;
 use Phalcon\Mvc\View\Engine\Volt;
 use Phalcon\Mvc\View;
@@ -106,12 +107,12 @@ class Bootstrap extends EngineBootstrap
     /**
      * Init locale.
      *
-     * @param DI     $di     Dependency injection.
-     * @param Config $config Dependency injection.
+     * @param DI            $di     Dependency injection.
+     * @param PhalconConfig $config Config
      *
      * @return void
      */
-    protected function _initI18n(DI $di, Config $config)
+    protected function _initI18n(DI $di, PhalconConfig $config)
     {
         if ($di->get('app')->isConsole()) {
             return;

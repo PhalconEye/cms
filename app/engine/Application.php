@@ -46,7 +46,7 @@ class Application extends PhalconApplication
     /**
      * Application configuration.
      *
-     * @var Config
+     * @var \Phalcon\Config
      */
     protected $_config;
 
@@ -264,8 +264,8 @@ class Application extends PhalconApplication
     /**
      * Attach required events.
      *
-     * @param EventsManager $eventsManager Events manager object.
-     * @param Config        $config        Application configuration.
+     * @param EventsManager   $eventsManager Events manager object.
+     * @param \Phalcon\Config $config        Application configuration.
      *
      * @return void
      */

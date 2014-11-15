@@ -28,6 +28,7 @@ use Engine\Db\Model\Annotations\Initializer as ModelAnnotationsInitializer;
 use Engine\Db\Schema;
 use Engine\Package\Manager as PackageManager;
 use Phalcon\Assets\Collection as AssetsCollection;
+use Phalcon\Config as PhalconConfig;
 use Phalcon\Events\Manager as EventsManager;
 use Phalcon\Http\ResponseInterface;
 use Phalcon\Mvc\Model\Manager as ModelManager;
@@ -246,7 +247,7 @@ class InstallController extends AbstractController
                 $packageManager = new PackageManager([], $this->di);
                 foreach ($this->di->get('registry')->modules as $moduleName) {
                     $packageManager->runInstallScript(
-                        new Config(
+                        new PhalconConfig(
                             [
                                 'name' => $moduleName,
                                 'type' => PackageManager::PACKAGE_TYPE_MODULE,
@@ -257,7 +258,8 @@ class InstallController extends AbstractController
                     );
                 }
 
-                $this->config->save('database');
+                Config::save($this->config, 'database');
+
                 $this->_setPassed(__FUNCTION__, true);
             } catch (\Exception $ex) {
                 $form->addError($ex->getMessage());
@@ -395,7 +397,7 @@ class InstallController extends AbstractController
     protected function _setupDatabase($connectionSettings = null)
     {
         if ($connectionSettings != null) {
-            $this->config->database = new Config($connectionSettings);
+            $this->config->database = new PhalconConfig($connectionSettings);
         }
 
         $config = $this->config;

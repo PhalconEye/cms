@@ -51,10 +51,10 @@ class View extends PhalconView
      * Create view instance.
      * If no events manager provided - events would not be attached.
      *
-     * @param DIBehaviour  $di             DI.
-     * @param Config       $config         Configuration.
-     * @param string|null  $viewsDirectory Views directory location.
-     * @param Manager|null $em             Events manager.
+     * @param DIBehaviour     $di             DI.
+     * @param \Phalcon\Config $config         Configuration.
+     * @param string|null     $viewsDirectory Views directory location.
+     * @param Manager|null    $em             Events manager.
      *
      * @return View
      */

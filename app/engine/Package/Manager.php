@@ -23,6 +23,7 @@ use Engine\Behaviour\DIBehaviour;
 use Engine\Config;
 use Engine\Package\Exception\InvalidManifest;
 use Engine\Package\Model\AbstractPackage;
+use Phalcon\Config as PhalconConfig;
 use Phalcon\DI;
 use Phalcon\Filter as PhalconFilter;
 
@@ -254,7 +255,7 @@ class Manager
      * @param string $packageFilePath Zip archive filepath.
      *
      * @throws PackageException
-     * @return Config
+     * @return PhalconConfig
      */
     public function installPackage($packageFilePath)
     {
@@ -415,7 +416,7 @@ class Manager
     /**
      * Run package installation script.
      *
-     * @param Config $manifest Module config.
+     * @param PhalconConfig $manifest Module config.
      *
      * @return string
      */
@@ -591,7 +592,7 @@ class Manager
      * @param string $manifestLocation Manifest path.
      *
      * @throws InvalidManifest
-     * @return Config
+     * @return PhalconConfig
      */
     private function _readPackageManifest($manifestLocation)
     {
@@ -609,7 +610,7 @@ class Manager
             throw new InvalidManifest('Manifest file is invalid or damaged.');
         }
 
-        return new Config($manifest);
+        return new PhalconConfig($manifest);
     }
 
     /**
@@ -682,7 +683,7 @@ class Manager
     /**
      * Check package dependencies.
      *
-     * @param Config $manifest Package manifest.
+     * @param PhalconConfig $manifest Package manifest.
      *
      * @throws PackageException
      * @return void

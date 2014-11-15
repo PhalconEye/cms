@@ -18,7 +18,6 @@
 
 namespace Core\Helper;
 
-use Engine\Config;
 use Engine\Helper;
 use Engine\Profiler as EngineProfiler;
 use Phalcon\DI;
@@ -48,7 +47,7 @@ class Profiler extends Helper
     /**
      * Config object.
      *
-     * @var Config
+     * @var \Phalcon\Config
      */
     protected $_config;
 
