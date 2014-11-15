@@ -63,8 +63,8 @@ class CacheAnnotation extends PhalconPlugin
             $options = ['lifetime' => $lifetime];
 
             // Check if there is a user defined cache key.
-            if ($annotation->hasNamedArgument('key')) {
-                $options['key'] = $annotation->getNamedArgument('key');
+            if ($annotation->hasArgument('key')) {
+                $options['key'] = $annotation->hasArgument('key');
             }
 
             // Enable the cache for the current method.
