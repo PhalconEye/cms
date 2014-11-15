@@ -46,7 +46,7 @@ class CacheAnnotation extends PhalconPlugin
     {
         // Parse the annotations in the method currently executed.
         $annotations = $this->annotations->getMethod(
-            $dispatcher->getActiveController(),
+            get_class($dispatcher->getActiveController()),
             $dispatcher->getActiveMethod()
         );
 
