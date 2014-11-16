@@ -90,7 +90,7 @@ class Config
                 $config->stage = $stage;
             } else {
                 $config = self::_getConfiguration($stage);
-                $config->refreshCache();
+                self::refreshCache($config);
             }
         }
 
@@ -150,12 +150,13 @@ class Config
      * @param string|array  $sections Config section name to save. By default: Config::CONFIG_DEFAULT_SECTION.
      *
      * @return void
+     * @throws Exception if invalid configuration is used
      */
     public static function save(PhalconConfig $config, $sections = self::CONFIG_DEFAULT_SECTION)
     {
         // Added here to protect the config file from overriding by custom instance
         if (!$config->stage) {
-            return;
+            throw new Exception('Using invalid configuration');
         }
 
         $configDirectory = ROOT_PATH . self::CONFIG_PATH . $config->stage;
@@ -170,8 +171,27 @@ class Config
             );
         }
 
-        // Refresh cache
-        file_put_contents(ROOT_PATH . self::CONFIG_CACHE_PATH, self::_toConfigurationString($config->toArray()));
+        self::refreshCache($config);
+    }
+
+    /**
+     * Save config file into cached config file.
+     *
+     * @param PhalconConfig $config Config instance
+     *
+     * @return void
+     * @throws Exception if invalid configuration is used
+     */
+    public static function refreshCache(PhalconConfig $config)
+    {
+        // Added here to protect the config file from overriding by custom instance
+        if (!$config->stage) {
+            throw new Exception('Using invalid configuration');
+        }
+
+        $data = $config->toArray();
+
+        file_put_contents(ROOT_PATH . self::CONFIG_CACHE_PATH, self::_toConfigurationString($data));
     }
 
     /**
@@ -179,7 +199,7 @@ class Config
      *
      * @param array $data Configuration data.
      *
-     * @return void
+     * @return string
      */
     protected static function _toConfigurationString(array $data)
     {
