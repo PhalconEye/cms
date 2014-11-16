@@ -65,8 +65,8 @@ trait ApplicationInitialization
     /**
      * Init logger.
      *
-     * @param DIBehaviour|DI $di     Dependency Injection.
-     * @param Config         $config Config object.
+     * @param DIBehaviour|DI  $di     Dependency Injection.
+     * @param \Phalcon\Config $config Config object.
      *
      * @return void
      */
@@ -90,9 +90,9 @@ trait ApplicationInitialization
     /**
      * Init loader.
      *
-     * @param DIBehaviour|DI $di            Dependency Injection.
-     * @param Config         $config        Config object.
-     * @param EventsManager  $eventsManager Event manager.
+     * @param DIBehaviour|DI  $di            Dependency Injection.
+     * @param \Phalcon\Config $config        Config object.
+     * @param EventsManager   $eventsManager Event manager.
      *
      * @return Loader
      */
@@ -131,8 +131,8 @@ trait ApplicationInitialization
     /**
      * Init environment.
      *
-     * @param DIBehaviour|DI $di     Dependency Injection.
-     * @param Config         $config Config object.
+     * @param DIBehaviour|DI  $di     Dependency Injection.
+     * @param \Phalcon\Config $config Config object.
      *
      * @return Url
      */
@@ -182,8 +182,8 @@ trait ApplicationInitialization
     /**
      * Attach required events.
      *
-     * @param EventsManager $eventsManager Events manager object.
-     * @param Config        $config        Application configuration.
+     * @param EventsManager   $eventsManager Events manager object.
+     * @param \Phalcon\Config $config        Application configuration.
      *
      * @return void
      */
@@ -207,8 +207,8 @@ trait ApplicationInitialization
     /**
      * Init annotations.
      *
-     * @param DIBehaviour|DI $di     Dependency Injection.
-     * @param Config         $config Config object.
+     * @param DIBehaviour|DI  $di     Dependency Injection.
+     * @param \Phalcon\Config $config Config object.
      *
      * @return void
      */
@@ -233,8 +233,8 @@ trait ApplicationInitialization
     /**
      * Init router.
      *
-     * @param DIBehaviour|DI $di     Dependency Injection.
-     * @param Config         $config Config object.
+     * @param DIBehaviour|DI  $di     Dependency Injection.
+     * @param \Phalcon\Config $config Config object.
      *
      * @return Router
      */
@@ -317,9 +317,9 @@ trait ApplicationInitialization
     /**
      * Init database.
      *
-     * @param DIBehaviour|DI $di            Dependency Injection.
-     * @param Config         $config        Config object.
-     * @param EventsManager  $eventsManager Event manager.
+     * @param DIBehaviour|DI  $di            Dependency Injection.
+     * @param \Phalcon\Config $config        Config object.
+     * @param EventsManager   $eventsManager Event manager.
      *
      * @return Pdo
      */
@@ -424,8 +424,8 @@ trait ApplicationInitialization
     /**
      * Init session.
      *
-     * @param DIBehaviour|DI $di     Dependency Injection.
-     * @param Config         $config Config object.
+     * @param DIBehaviour|DI  $di     Dependency Injection.
+     * @param \Phalcon\Config $config Config object.
      *
      * @return SessionAdapter
      */
@@ -446,8 +446,8 @@ trait ApplicationInitialization
     /**
      * Init cache.
      *
-     * @param DIBehaviour|DI $di     Dependency Injection.
-     * @param Config         $config Config object.
+     * @param DIBehaviour|DI  $di     Dependency Injection.
+     * @param \Phalcon\Config $config Config object.
      *
      * @return void
      */
@@ -516,9 +516,9 @@ trait ApplicationInitialization
     /**
      * Initialize view.
      *
-     * @param DIBehaviour|DI $di            Dependency Injection.
-     * @param Config         $config        Config object.
-     * @param EventsManager  $eventsManager Event manager.
+     * @param DIBehaviour|DI  $di            Dependency Injection.
+     * @param \Phalcon\Config $config        Config object.
+     * @param EventsManager   $eventsManager Event manager.
      *
      * @return void
      */

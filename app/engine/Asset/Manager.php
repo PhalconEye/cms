@@ -291,11 +291,11 @@ class Manager extends AssetManager
     }
 
     /**
-     * Get <head> tag inline code.
+     * Get additional <head> tag inline code.
      *
      * @return string
      */
-    public function outputInline()
+    public function outputInlineHead()
     {
         return implode('\n', $this->_inline);
     }
@@ -334,6 +334,18 @@ class Manager extends AssetManager
     }
 
     /**
+     * Prints inline js code.
+     *
+     * @param string $collectionName the name of the collection
+     *
+     * @return string
+     **/
+    public function outputInlineJs($collectionName = self::DEFAULT_COLLECTION_JS)
+    {
+        return parent::outputInlineJs($collectionName);
+    }
+
+    /**
      * Prints the HTML for CSS resources.
      *
      * @param string $collectionName the name of the collection
@@ -365,6 +377,18 @@ class Manager extends AssetManager
         }
         return parent::outputCss($collectionName);
 
+    }
+
+    /**
+     * Prints inline css code.
+     *
+     * @param string $collectionName the name of the collection
+     *
+     * @return string
+     **/
+    public function outputInlineCss($collectionName = self::DEFAULT_COLLECTION_CSS)
+    {
+        return parent::outputInlineCss($collectionName);
     }
 
     /**

@@ -20,7 +20,8 @@ namespace Core\Controller;
 
 use Core\Form\Admin\Setting\Performance as PerformanceForm;
 use Core\Model\Settings;
-use Phalcon\Config;
+use Engine\Config;
+use Phalcon\Config as PhalconConfig;
 
 /**
  * Admin performance settings.
@@ -102,8 +103,8 @@ class AdminPerformanceController extends AbstractAdminController
                 break;
         }
 
-        $this->config->application->cache = new Config($cacheData);
-        $this->config->save();
+        $this->config->application->cache = new PhalconConfig($cacheData);
+        Config::save($this->config);
         $this->flash->success('Settings saved!');
     }
 }

@@ -31,7 +31,7 @@ use Phalcon\Config as PhalconConfig;
  * @license   New BSD License
  * @link      http://phalconeye.com/
  */
-class Config extends PhalconConfig
+class Config
 {
     const
         /**
@@ -70,30 +70,11 @@ class Config extends PhalconConfig
         CONFIG_DEFAULT_SECTION = 'application';
 
     /**
-     * Current config stage.
-     *
-     * @var string
-     */
-    private $_currentStage;
-
-    /**
-     * Create configuration object.
-     *
-     * @param array|null  $arrayConfig Configuration data.
-     * @param string|null $stage       Configuration stage.
-     */
-    public function __construct($arrayConfig = null, $stage = null)
-    {
-        $this->_currentStage = $stage;
-        parent::__construct($arrayConfig);
-    }
-
-    /**
      * Load configuration according to selected stage.
      *
      * @param string $stage Configuration stage.
      *
-     * @return Config
+     * @return PhalconConfig
      */
     public static function factory($stage = null)
     {
@@ -105,51 +86,15 @@ class Config extends PhalconConfig
             $config = self::_getConfiguration($stage);
         } else {
             if (file_exists(self::CONFIG_CACHE_PATH)) {
-                $config = new Config(include_once(self::CONFIG_CACHE_PATH), $stage);
+                $config = new PhalconConfig(include_once(self::CONFIG_CACHE_PATH));
+                $config->stage = $stage;
             } else {
                 $config = self::_getConfiguration($stage);
-                $config->refreshCache();
+                self::refreshCache($config);
             }
         }
 
         return $config;
-    }
-
-    /**
-     * Save config file into cached config file.
-     *
-     * @return void
-     */
-    public function refreshCache()
-    {
-        file_put_contents(ROOT_PATH . self::CONFIG_CACHE_PATH, $this->_toConfigurationString());
-    }
-
-    /**
-     * Save config.
-     *
-     * @param string|array $sections Config section name to save. By default: Config::CONFIG_DEFAULT_SECTION.
-     *
-     * @return void
-     */
-    public function save($sections = self::CONFIG_DEFAULT_SECTION)
-    {
-        if (!$this->_currentStage) {
-            return;
-        }
-
-        $configDirectory = ROOT_PATH . self::CONFIG_PATH . $this->_currentStage;
-        if (!is_array($sections)) {
-            $sections = array($sections);
-        }
-
-        foreach ($sections as $section) {
-            file_put_contents(
-                $configDirectory . '/' . $section . '.php',
-                $this->_toConfigurationString($this->get($section)->toArray())
-            );
-        }
-        $this->refreshCache();
     }
 
     /**
@@ -158,11 +103,12 @@ class Config extends PhalconConfig
      * @param string $stage Configuration stage.
      *
      * @throws Exception
-     * @return Config
+     * @return PhalconConfig
      */
     protected static function _getConfiguration($stage)
     {
-        $config = new Config(null, $stage);
+        $config = new PhalconConfig;
+        $config->stage = $stage;
         $configDirectory = ROOT_PATH . self::CONFIG_PATH . $stage;
         $configFiles = glob($configDirectory .'/*.php');
 
@@ -177,40 +123,89 @@ class Config extends PhalconConfig
 
         foreach ($configFiles as $file) {
             $data = include_once($file);
-            $config->offsetSet(basename($file, ".php"), $data);
+            $config->offsetSet(basename($file, ".php"), new PhalconConfig($data));
         }
 
         $appPath = ROOT_PATH . self::CONFIG_METADATA_APP;
 
         if (!file_exists($appPath)) {
+            $emptyConfig = new PhalconConfig;
             $config->offsetSet('installed', false);
-            $config->offsetSet('events', array());
-            $config->offsetSet('modules', array());
-            $config->offsetSet('widgets', array());
+            $config->offsetSet('events', clone $emptyConfig);
+            $config->offsetSet('modules', clone $emptyConfig);
+            $config->offsetSet('widgets', clone $emptyConfig);
             return $config;
         }
 
         $data = include_once($appPath);
-        $config->merge(new Config($data));
+        $config->merge(new PhalconConfig($data));
 
         return $config;
     }
 
     /**
-     * Save application config to file.
+     * Save config.
      *
-     * @param array|null $data Configuration data.
+     * @param PhalconConfig $config   Config instance
+     * @param string|array  $sections Config section name to save. By default: Config::CONFIG_DEFAULT_SECTION.
      *
      * @return void
+     * @throws Exception if invalid configuration is used
      */
-    protected function _toConfigurationString($data = null)
+    public static function save(PhalconConfig $config, $sections = self::CONFIG_DEFAULT_SECTION)
     {
-        if (!$data) {
-            $data = $this->toArray();
+        // Added here to protect the config file from overriding by custom instance
+        if (!$config->stage) {
+            throw new Exception('Using invalid configuration');
         }
+
+        $configDirectory = ROOT_PATH . self::CONFIG_PATH . $config->stage;
+        if (!is_array($sections)) {
+            $sections = array($sections);
+        }
+
+        foreach ($sections as $section) {
+            file_put_contents(
+                $configDirectory . '/' . $section . '.php',
+                self::_toConfigurationString($config->get($section)->toArray())
+            );
+        }
+
+        self::refreshCache($config);
+    }
+
+    /**
+     * Save config file into cached config file.
+     *
+     * @param PhalconConfig $config Config instance
+     *
+     * @return void
+     * @throws Exception if invalid configuration is used
+     */
+    public static function refreshCache(PhalconConfig $config)
+    {
+        // Added here to protect the config file from overriding by custom instance
+        if (!$config->stage) {
+            throw new Exception('Using invalid configuration');
+        }
+
+        $data = $config->toArray();
+
+        file_put_contents(ROOT_PATH . self::CONFIG_CACHE_PATH, self::_toConfigurationString($data));
+    }
+
+    /**
+     * Save application config to file.
+     *
+     * @param array $data Configuration data.
+     *
+     * @return string
+     */
+    protected static function _toConfigurationString(array $data)
+    {
         $configText = var_export($data, true);
 
-        // Fix pathes. This related to windows directory separator.
+        // Fix paths. This related to windows directory separator.
         $configText = str_replace('\\\\', DS, $configText);
 
         $configText = str_replace("'" . PUBLIC_PATH, "PUBLIC_PATH . '", $configText);

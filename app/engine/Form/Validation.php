@@ -20,9 +20,9 @@ namespace Engine\Form;
 
 use Engine\Db\AbstractModel;
 use Engine\Form\Behaviour\ContainerBehaviour;
-use Engine\Form\Behaviour\FieldSetBehaviour;
 use Engine\Form;
 use Phalcon\Validation as PhalconValidation;
+use Phalcon\Validation\ValidatorInterface;
 
 
 /**
@@ -66,31 +66,31 @@ class Validation extends PhalconValidation
     /**
      * Add validator to validation.
      *
-     * @param string                      $attribute Attribute name.
-     * @param PhalconValidation\Validator $validator Validator object.
+     * @param string             $field     Attribute name.
+     * @param ValidatorInterface $validator Validator object.
      *
      * @throws Exception
      * @return $this
      */
-    public function add($attribute, $validator)
+    public function add($field, ValidatorInterface $validator)
     {
-        if (!$this->_container->has($attribute)) {
-            throw new Exception(sprintf('Element "%s" not found in current elements container.', $attribute));
+        if (!$this->_container->has($field)) {
+            throw new Exception(sprintf('Element "%s" not found in current elements container.', $field));
         }
-        $this->_preparedValidators[$attribute][] = $validator;
+        $this->_preparedValidators[$field][] = $validator;
         return $this;
     }
 
     /**
      * Remove validator from validation.
      *
-     * @param string $attribute Attribute name.
+     * @param string $field Attribute name.
      *
      * @return $this
      */
-    public function remove($attribute)
+    public function remove($field)
     {
-        unset($this->_preparedValidators[$attribute]);
+        unset($this->_preparedValidators[$field]);
         return $this;
     }
 
@@ -108,9 +108,9 @@ class Validation extends PhalconValidation
             return new PhalconValidation\Message\Group();
         }
 
-        foreach ($this->_preparedValidators as $attribute => $validators) {
+        foreach ($this->_preparedValidators as $field => $validators) {
             foreach ($validators as $validator) {
-                parent::add($attribute, $validator);
+                parent::add($field, $validator);
             }
         }
 

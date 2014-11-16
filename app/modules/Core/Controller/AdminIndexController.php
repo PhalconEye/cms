@@ -18,6 +18,8 @@
 
 namespace Core\Controller;
 
+use Engine\Config;
+
 /**
  * Admin Index controller.
  *
@@ -54,7 +56,7 @@ class AdminIndexController extends AbstractAdminController
     {
         $this->view->disable();
         $this->config->application->debug = (bool)$this->request->get('debug', null, true);
-        $this->config->save();
+        Config::save($this->config);
         $this->_clearCache();
     }
 

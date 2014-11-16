@@ -25,9 +25,10 @@
     <meta name="generator" content="PhalconEye - Open Source Content Management System">
     <link href="favicon.ico" rel="shortcut icon" type="image/x-icon"/>
 
-    {{ assets.outputCss() }}
+    {{ assets.outputInlineHead() }}
 
-    {{ assets.outputInline() }}
+    {{ assets.outputCss() }}
+    {{ assets.outputInlineCss() }}
 
     <script type="text/javascript">
         {{ helper('i18n', 'core').render() }}
@@ -70,6 +71,7 @@
 </div>
 
 {{ assets.outputJs() }}
+{{ assets.outputInlineJs() }}
 {{ helper('profiler', 'core').render() }}
 </body>
 </html>

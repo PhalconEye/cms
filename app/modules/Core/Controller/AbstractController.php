@@ -46,7 +46,7 @@ use Phalcon\Mvc\View;
  * @property \Engine\Application        $app
  * @property \Engine\View               $view
  * @property \Engine\Asset\Manager      $assets
- * @property \Engine\Config             $config
+ * @property \Phalcon\Config            $config
  * @property \Phalcon\Translate\Adapter $i18n
  * @property DIBehaviour|DI             $di
  *

@@ -209,10 +209,10 @@ class Acl extends AbstractApi
         if ($annotations && $annotations->has('Acl')) {
             $annotation = $annotations->get('Acl');
 
-            if ($annotation->hasNamedArgument('actions')) {
+            if ($annotation->hasArgument('actions')) {
                 $object->actions = $annotation->getNamedArgument('actions');
             }
-            if ($annotation->hasNamedArgument('options')) {
+            if ($annotation->hasArgument('options')) {
                 $object->options = $annotation->getNamedArgument('options');
             }
         } else {
