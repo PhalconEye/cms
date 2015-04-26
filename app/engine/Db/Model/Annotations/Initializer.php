@@ -13,6 +13,7 @@
   | to license@phalconeye.com so we can send you a copy immediately.       |
   +------------------------------------------------------------------------+
   | Author: Ivan Vorontsov <ivan.vorontsov@phalconeye.com>                 |
+  | Author: Piotr Gasiorowski <p.gasiorowski@vipserv.org>                  |
   +------------------------------------------------------------------------+
 */
 
@@ -29,6 +30,7 @@ use Phalcon\Mvc\User\Plugin;
  * @category  PhalconEye
  * @package   Engine\Db\Model\Annotations
  * @author    Ivan Vorontsov <ivan.vorontsov@phalconeye.com>
+ * @author    Piotr Gasiorowski <p.gasiorowski@vipserv.org>
  * @copyright 2013-2014 PhalconEye Team
  * @license   New BSD License
  * @link      http://phalconeye.com/
@@ -72,11 +74,17 @@ class Initializer extends Plugin
                      */
                     case 'HasMany':
                         $arguments = $annotation->getArguments();
-                        if (isset($arguments[3])) {
-                            $manager->addHasMany($model, $arguments[0], $arguments[1], $arguments[2], $arguments[3]);
-                        } else {
-                            $manager->addHasMany($model, $arguments[0], $arguments[1], $arguments[2]);
-                        }
+                        array_unshift($arguments, $model);
+                        call_user_func_array([$manager, 'addHasMany'], $arguments);
+                        break;
+
+                    /**
+                     * Initializes Has-Many-To-Many relations
+                     */
+                    case 'HasManyToMany':
+                        $arguments = $annotation->getArguments();
+                        array_unshift($arguments, $model);
+                        call_user_func_array([$manager, 'addHasManyToMany'], $arguments);
                         break;
 
                     /**
@@ -84,12 +92,8 @@ class Initializer extends Plugin
                      */
                     case 'BelongsTo':
                         $arguments = $annotation->getArguments();
-                        if (isset($arguments[3])) {
-                            $manager->addBelongsTo($model, $arguments[0], $arguments[1], $arguments[2], $arguments[3]);
-                        } else {
-                            $manager->addBelongsTo($model, $arguments[0], $arguments[1], $arguments[2]);
-                        }
-                        break;
+                        array_unshift($arguments, $model);
+                        call_user_func_array([$manager, 'addBelongsTo'], $arguments);
                 }
             }
         }
