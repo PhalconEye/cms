@@ -20,7 +20,7 @@
 {% block title %}Admin panel{% endblock %}
 
 {% block head %}
-    {{ helper('assets').addJs('assets/js/core/admin/dashboard.js') }}
+    {{ javascript_include("assets/js/core/admin/dashboard.js") }}
 {% endblock %}
 
 {% block content %}
