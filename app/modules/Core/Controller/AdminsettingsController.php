@@ -18,8 +18,11 @@
 
 namespace Core\Controller;
 
+use Core\Form\Admin\Setting\System as SystemSettingsForm;
+use Core\Model\Settings;
+
 /**
- * Admin Index controller.
+ * Admin settings.
  *
  * @category  PhalconEye
  * @package   Core\Controller
@@ -27,50 +30,33 @@ namespace Core\Controller;
  * @copyright 2013-2014 PhalconEye Team
  * @license   New BSD License
  * @link      http://phalconeye.com/
+ *
+ * @RoutePrefix("/admin/settings", name="admin-settings")
  */
-class AdminIndexController extends AbstractAdminController
+class AdminsettingsController extends AbstractAdminController
 {
     /**
      * Index action.
      *
      * @return void
      *
-     * @Get("/admin", name="admin-home")
+     * @Route("/", methods={"GET", "POST"}, name="admin-settings-general")
      */
     public function indexAction()
     {
-        $this->view->setRenderLevel(1); // render only action
-        $this->view->debug = $this->config->application->debug;
+        $form = new SystemSettingsForm();
+        $this->view->form = $form;
+
+        if (!$this->request->isPost() || !$form->isValid()) {
+            return;
+        }
+
+        foreach ($form->getValues() as $key => $value) {
+            Settings::setValue('system', $key, $value);
+        }
+
+        $this->flash->success('Settings saved!');
     }
 
-    /**
-     * Action for mode changing.
-     *
-     * @return void
-     *
-     * @Get("/admin/mode", name="admin-mode")
-     */
-    public function modeAction()
-    {
-        $this->view->disable();
-        $this->config->application->debug = (bool)$this->request->get('debug', null, true);
-        $this->config->save();
-        $this->_clearCache();
-    }
-
-    /**
-     * Action for cleaning cache.
-     *
-     * @return void
-     *
-     * @Get("/admin/clear", name="admin-clear")
-     */
-    public function cleanAction()
-    {
-        $this->view->disable();
-        $this->_clearCache();
-        $this->flashSession->success('Cache cleared!');
-        $this->response->redirect(['for' => 'admin-home']);
-    }
 }
 

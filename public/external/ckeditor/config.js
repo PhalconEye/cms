@@ -6,7 +6,7 @@ CKEDITOR.editorConfig = function( config ) {
 	// Define changes to default configuration here. For example:
 	// config.language = 'fr';
 	// config.uiColor = '#AADC6E';
-    config.filebrowserBrowseUrl = '/external/pydio/?external_selector_type=ckeditor&relative_path=/files';
-    config.filebrowserImageBrowseUrl = '/external/pydio/?external_selector_type=ckeditor&relative_path=/files';
-    config.filebrowserUploadUrl = '/external/pydio/?external_selector_type=ckeditor&relative_path=/files';
+    config.filebrowserBrowseUrl = BASE_URI+'external/pydio/?external_selector_type=ckeditor&relative_path='+BASE_URI+'files';
+    config.filebrowserImageBrowseUrl = BASE_URI+'external/pydio/?external_selector_type=ckeditor&relative_path='+BASE_URI+'files';
+    config.filebrowserUploadUrl = BASE_URI+'external/pydio/?external_selector_type=ckeditor&relative_path='+BASE_URI+'files';
 };

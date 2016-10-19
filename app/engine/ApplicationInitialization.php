@@ -99,6 +99,7 @@ trait ApplicationInitialization
      */
     protected function _initLoader($di, $config, $eventsManager)
     {
+
         // Add all required namespaces and modules.
         $registry = $di->get('registry');
         $namespaces = [];
@@ -176,7 +177,7 @@ trait ApplicationInitialization
         $url = new Url();
         $url->setBaseUri($config->application->baseUrl);
         $di->set('url', $url);
-
+        define('BASE_URI', $config->application->baseUrl);
         return $url;
     }
 
@@ -274,7 +275,7 @@ trait ApplicationInitialization
             $modules = $di->get('registry')->modules;
 
             // Use the annotations router.
-            $router = new RouterAnnotations(true);
+            $router = new RouterAnnotations(false);
 
             // Use $_SERVER['REQUEST_URI'] (NGINX)
             if (!isset($_GET['_url'])) {

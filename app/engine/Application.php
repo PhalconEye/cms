@@ -22,6 +22,8 @@ use Phalcon\DI;
 use Phalcon\Events\Manager as EventsManager;
 use Phalcon\Mvc\Application as PhalconApplication;
 use Phalcon\Registry;
+use Engine\Asset\Manager;
+use Core\Model\Settings;
 
 /**
  * Application class.
@@ -192,7 +194,7 @@ class Application extends PhalconApplication
      *
      * @return $this
      */
-    public function registerModules($modules, $merge = false)
+    public function registerModules(array $modules, $merge = null)
     {
         $bootstraps = [];
         $di = $this->getDI();
@@ -268,6 +270,10 @@ class Application extends PhalconApplication
 
         // Clear assets.
         $this->_dependencyInjector->getShared('assets')->clear(true, $themeDirectory);
+
+        //Reinstall asset
+        $assetsManager = new Manager($this->getDI(), false);
+        $assetsManager->installAssets(PUBLIC_PATH . '/themes/' . Settings::getSetting('system_theme'));
     }
 
     /**

@@ -73,6 +73,9 @@ class Db implements AdapterInterface
         $this->_translationModel = $model;
     }
 
+    public function t($translateKey, $placeholders = NULL){
+        return $this->_($translateKey, $placeholders);
+    }
     /**
      * Returns the translation string of the given key.
      *

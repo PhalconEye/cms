@@ -27,7 +27,7 @@
 
     {{ assets.outputCss() }}
 
-    {{ assets.outputInline() }}
+    {{ assets.outputInlineX() }}
 
     <script type="text/javascript">
         {{ helper('i18n', 'core').render() }}
@@ -40,7 +40,9 @@
 </head>
 <body data-base-url="{{ url() }}" data-debug="{{ config.application.debug }}">
 <div id="wrapper">
-
+    <script type="text/javascript">
+        BASE_URI="{{ constant('BASE_URI') }}";
+    </script>
     <header>
         {% if contentHeader is defined %}
             {{ contentHeader }}

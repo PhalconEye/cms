@@ -25,7 +25,7 @@
 
     {{ assets.outputCss() }}
 
-    {{ assets.outputInline() }}
+    {{ assets.outputInlineX() }}
 
     <script type="text/javascript">
         {{ helper('i18n', 'core').render() }}
@@ -38,7 +38,9 @@
 </head>
 
 <body data-base-url="{{ url() }}" data-debug="{{ config.application.debug }}">
-
+<script type="text/javascript">
+    BASE_URI="{{ constant('BASE_URI') }}";
+</script>
 <div class="navbar navbar_panel">
     <div class="navbar-inner">
         <a class="brand" href="{{ url("admin") }}">

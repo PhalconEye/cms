@@ -252,7 +252,8 @@ class InstallController extends AbstractController
                                 'type' => PackageManager::PACKAGE_TYPE_MODULE,
                                 'currentVersion' => '0',
                                 'isUpdate' => false
-                            ]
+                            ],
+                            null
                         )
                     );
                 }
@@ -395,7 +396,7 @@ class InstallController extends AbstractController
     protected function _setupDatabase($connectionSettings = null)
     {
         if ($connectionSettings != null) {
-            $this->config->database = new Config($connectionSettings);
+            $this->config->database = new Config($connectionSettings,null);
         }
 
         $config = $this->config;

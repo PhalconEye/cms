@@ -50,7 +50,6 @@ class Dispatcher extends PhalconDispatcher
             }
             $this->_handlerName = $finalHandlerName;
             $this->_actionName = strtolower($this->_actionName);
-
             return parent::dispatch();
         } catch (\Exception $e) {
             $this->_handleException($e);

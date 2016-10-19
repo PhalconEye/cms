@@ -72,7 +72,7 @@ class Validation extends PhalconValidation
      * @throws Exception
      * @return $this
      */
-    public function add($attribute, $validator)
+    public function add($attribute, \Phalcon\Validation\ValidatorInterface $validator)
     {
         if (!$this->_container->has($attribute)) {
             throw new Exception(sprintf('Element "%s" not found in current elements container.', $attribute));

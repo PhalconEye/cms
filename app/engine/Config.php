@@ -162,7 +162,7 @@ class Config extends PhalconConfig
      */
     protected static function _getConfiguration($stage)
     {
-        $config = new Config(null, $stage);
+        $config = new Config(array(), $stage);
         $configDirectory = ROOT_PATH . self::CONFIG_PATH . $stage;
         $configFiles = glob($configDirectory .'/*.php');
 
