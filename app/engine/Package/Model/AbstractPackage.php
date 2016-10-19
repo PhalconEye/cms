@@ -245,7 +245,7 @@ abstract class AbstractPackage extends AbstractModel
      *
      * @return $this
      */
-    public function assign($data, $columnMap = null)
+    public function assign(array $data, $columnMap = null, $whiteList = NULL)
     {
         $events = !empty($data['events']) ? $data['events'] : [];
         $widgets = !empty($data['widgets']) ? $data['widgets'] : [];

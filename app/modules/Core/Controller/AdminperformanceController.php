@@ -34,7 +34,7 @@ use Phalcon\Config;
  *
  * @RoutePrefix("/admin/performance", name="admin-performance")
  */
-class AdminPerformanceController extends AbstractAdminController
+class AdminperformanceController extends AbstractAdminController
 {
     /**
      * Index action.

@@ -37,7 +37,7 @@ use User\Model\Role;
  *
  * @RoutePrefix("/admin/access")
  */
-class AdminAccessController extends AbstractAdminController
+class AdminaccessController extends AbstractAdminController
 {
     /**
      * Index action.

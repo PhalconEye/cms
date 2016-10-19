@@ -19,7 +19,7 @@
 namespace Core\Controller;
 
 /**
- * Admin files controller.
+ * Admin Index controller.
  *
  * @category  PhalconEye
  * @package   Core\Controller
@@ -27,20 +27,50 @@ namespace Core\Controller;
  * @copyright 2013-2014 PhalconEye Team
  * @license   New BSD License
  * @link      http://phalconeye.com/
- *
- * @RoutePrefix("/admin/files", name="admin-files")
  */
-class AdminFilesController extends AbstractAdminController
+class AdminindexController extends AbstractAdminController
 {
     /**
      * Index action.
      *
      * @return void
      *
-     * @Route("/", methods={"GET", "POST"}, name="admin-files")
+     * @Get("/admin", name="admin-home")
      */
     public function indexAction()
     {
+        $this->view->setRenderLevel(1); // render only action
+        $this->view->debug = $this->config->application->debug;
+    }
+
+    /**
+     * Action for mode changing.
+     *
+     * @return void
+     *
+     * @Get("/admin/mode", name="admin-mode")
+     */
+    public function modeAction()
+    {
+        $this->view->disable();
+        $this->config->application->debug = (bool)$this->request->get('debug', null, true);
+        $this->config->save();
+        $this->_clearCache();
+    }
+
+    /**
+     * Action for cleaning cache.
+     *
+     * @return void
+     *
+     * @Get("/admin/clear", name="admin-clear")
+     */
+    public function cleanAction()
+    {
+        $this->view->disable();
+        $this->_clearCache();
+        $this->flashSession->success('Cache cleared!');
+        $this->response->redirect(['for' => 'admin-home']);
     }
 }
 

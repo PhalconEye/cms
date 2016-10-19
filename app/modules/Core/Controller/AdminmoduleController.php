@@ -35,7 +35,7 @@ use Phalcon\Mvc\Dispatcher\Exception as DispatcherAdminException;
  *
  * @RoutePrefix("/admin/module", name="admin-module")
  */
-class AdminModuleController extends AbstractAdminController
+class AdminmoduleController extends AbstractAdminController
 {
     const
         /**

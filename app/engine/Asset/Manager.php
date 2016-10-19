@@ -196,6 +196,11 @@ class Manager extends AssetManager
                 FsUtilities::fsCopyRecursive($assetsPath . 'img', $path, true);
             }
         }
+
+        // FONTS
+        $path = $location . 'fonts/';
+        FsUtilities::fsCheckLocation($path);
+        FsUtilities::fsCopyRecursive($location . '../external/bootstrap/fonts', $path, true);
     }
 
     /**
@@ -238,9 +243,14 @@ class Manager extends AssetManager
                 ->setLocal(false);
         }
 
+        if(!$this->_config->application->debug){
+            return $collection
+                ->addFilter(new Jsmin())
+                ->join(!$this->_config->application->debug);
+        }
         return $collection
-            ->addFilter(new Jsmin())
-            ->join(!$this->_config->application->debug);
+            ->setFilters(array())
+            ->join(false);
     }
 
     /**
@@ -258,9 +268,14 @@ class Manager extends AssetManager
                 ->setLocal(false);
         }
 
+        if(!$this->_config->application->debug){
+            return $collection
+                ->addFilter(new Cssmin())
+                ->join(!$this->_config->application->debug);
+        }
         return $collection
-            ->addFilter(new Cssmin())
-            ->join(!$this->_config->application->debug);
+            ->setFilters(array())
+            ->join(false);
     }
 
     /**
@@ -290,12 +305,22 @@ class Manager extends AssetManager
         return $this;
     }
 
+//    /**
+//     * Get <head> tag inline code.
+//     *
+//     * @return string
+//     */
+//    public function outputInline()
+//    {
+//        return implode('\n', $this->_inline);
+//    }
+
     /**
-     * Get <head> tag inline code.
-     *
-     * @return string
-     */
-    public function outputInline()
+    //     * Get <head> tag inline code.
+    //     *
+    //     * @return string
+    //     */
+    public function outputInlineX()
     {
         return implode('\n', $this->_inline);
     }
@@ -362,6 +387,16 @@ class Manager extends AssetManager
             $res = parent::outputCss($collectionName);
             $this->_cache->save($filename, true, $lifetime);
             return $res;
+        }
+        if(count($collection->getFilters())>0){
+            $local = $this->_config->application->assets->get('local');
+            $filepath = $local . self::GENERATED_STORAGE_PATH . $filename = $filename =
+                    $this->getCollectionFileName($collection, self::FILENAME_PATTERN_CSS);
+
+            $collection
+                ->setTargetPath($filepath)
+                ->setTargetUri($filepath);
+            $collection->join(true);
         }
         return parent::outputCss($collectionName);
 

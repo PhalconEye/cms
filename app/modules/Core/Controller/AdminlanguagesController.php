@@ -50,7 +50,7 @@ use Phalcon\Validation\Message;
  *
  * @RoutePrefix("/admin/languages", name="admin-languages")
  */
-class AdminLanguagesController extends AbstractAdminController
+class AdminlanguagesController extends AbstractAdminController
 {
     /**
      * Init controller.

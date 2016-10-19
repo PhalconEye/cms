@@ -18,11 +18,8 @@
 
 namespace Core\Controller;
 
-use Core\Form\Admin\Setting\System as SystemSettingsForm;
-use Core\Model\Settings;
-
 /**
- * Admin settings.
+ * Admin files controller.
  *
  * @category  PhalconEye
  * @package   Core\Controller
@@ -31,32 +28,19 @@ use Core\Model\Settings;
  * @license   New BSD License
  * @link      http://phalconeye.com/
  *
- * @RoutePrefix("/admin/settings", name="admin-settings")
+ * @RoutePrefix("/admin/files", name="admin-files")
  */
-class AdminSettingsController extends AbstractAdminController
+class AdminfilesController extends AbstractAdminController
 {
     /**
      * Index action.
      *
      * @return void
      *
-     * @Route("/", methods={"GET", "POST"}, name="admin-settings-general")
+     * @Route("/", methods={"GET", "POST"}, name="admin-files")
      */
     public function indexAction()
     {
-        $form = new SystemSettingsForm();
-        $this->view->form = $form;
-
-        if (!$this->request->isPost() || !$form->isValid()) {
-            return;
-        }
-
-        foreach ($form->getValues() as $key => $value) {
-            Settings::setValue('system', $key, $value);
-        }
-
-        $this->flash->success('Settings saved!');
     }
-
 }
 

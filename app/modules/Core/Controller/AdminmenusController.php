@@ -44,7 +44,7 @@ use Phalcon\Http\ResponseInterface;
  *
  * @RoutePrefix("/admin/menus")
  */
-class AdminMenusController extends AbstractAdminController
+class AdminmenusController extends AbstractAdminController
 {
     /**
      * Init controller before actions.

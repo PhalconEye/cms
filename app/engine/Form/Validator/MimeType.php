@@ -59,7 +59,7 @@ class MimeType extends Validator implements ValidatorInterface
      *
      * @return Group
      */
-    public function validate($validator, $attribute)
+    public function validate(\Phalcon\Validation $validator, $attribute)
     {
         $this->_currentValidator = $validator;
         $this->_currentAttribute = $attribute;

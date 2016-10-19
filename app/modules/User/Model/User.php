@@ -22,9 +22,10 @@ use Core\Api\Acl;
 use Engine\Db\AbstractModel;
 use Engine\Db\Model\Behavior\Timestampable;
 use Phalcon\DI;
-use Phalcon\Mvc\Model\Validator\Email;
-use Phalcon\Mvc\Model\Validator\StringLength;
-use Phalcon\Mvc\Model\Validator\Uniqueness;
+use Phalcon\Validation;
+use Phalcon\Validation\Validator\Email;
+use Phalcon\Validation\Validator\Uniqueness;
+use Phalcon\Validation\Validator\StringLength;
 
 /**
  * User.
@@ -174,10 +175,26 @@ class User extends AbstractModel
             $this->_errorMessages = [];
         }
 
-        $this->validate(new Uniqueness(["field" => "username"]));
-        $this->validate(new Uniqueness(["field" => "email"]));
-        $this->validate(new Email(["field" => "email", "required" => true]));
-        $this->validate(new StringLength(["field" => "password", "min" => 6]));
+//        $this->validate(new Uniqueness(["field" => "username"]));
+//        $this->validate(new Uniqueness(["field" => "email"]));
+//        $this->validate(new Email(["field" => "email", "required" => true]));
+//        $this->validate(new StringLength(["field" => "password", "min" => 6]));
+
+        $validator = new Validation();
+
+        $validator->add('username', new Uniqueness([
+            'message' => "Value of field 'username' is already present",
+        ]));
+        $validator->add('email', new Uniqueness([
+            'message' => "Value of field 'email' is already present",
+        ]));
+        $validator->add('email', new Email([
+            'message' => "Value of field 'email' is not email",
+        ]));
+        $validator->add('email', new StringLength([
+            'message' => "Value of field 'email' has les 6 characters",
+            "min" => 6
+        ]));
 
         return $this->validationHasFailed() !== true;
     }

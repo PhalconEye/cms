@@ -44,7 +44,7 @@ use User\Model\Role;
  *
  * @RoutePrefix("/admin/pages", name="admin-pages")
  */
-class AdminPagesController extends AbstractAdminController
+class AdminpagesController extends AbstractAdminController
 {
     /**
      * Init navigation.
@@ -165,7 +165,9 @@ class AdminPagesController extends AbstractAdminController
      */
     public function manageAction($id)
     {
-        $this->view->headerNavigation->setActiveItem('admin/pages');
+        if(isset($this->view->headerNavigation)){
+            $this->view->headerNavigation->setActiveItem('admin/pages');
+        }
         $page = Page::findFirstById($id);
         if (!$page) {
             $this->flashSession->notice('Page not found!');

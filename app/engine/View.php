@@ -78,7 +78,7 @@ class View extends PhalconView
             ->setRenderLevel(View::LEVEL_ACTION_VIEW)
             ->restoreViewDir();
 
-        if (!$viewsDirectory) {
+        if ($viewsDirectory!=null) {
             $view->setViewsDir($viewsDirectory);
         }
 
